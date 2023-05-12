@@ -1,4 +1,4 @@
-# Microcomputer-Design
+# Microcomputer Design
 Introduction:
 -	The goal of this project is to design, build, and program a single-board computer. It also provides insight into computer architecture
 
