@@ -1,0 +1,58 @@
+iMPACT Version: 14.7
+
+iMPACT log file Started on Thu Mar 24 00:45:52 2022
+
+Welcome to iMPACT
+iMPACT Version: 14.7
+Project: 'C:\Users\ducan\OneDrive\Undergraduate Classes\MicrocomputerDesign\Program\MCD\\auto_project.ipf' already exists.
+Original project has been renamed to 'C:\Users\ducan\OneDrive\UndergraduateClasses\Microcomputer Design\Program\MCD\\auto_project_1.ipf'.
+Project: C:\Users\ducan\OneDrive\Undergraduate Classes\MicrocomputerDesign\Program\MCD\\auto_project.ipf created.
+// *** BATCH CMD : setMode -bs
+// *** BATCH CMD : addDevice -p 1 -file "C:/Users/ducan/OneDrive/UndergraduateClasses/Microcomputer Design/Program/MCD/MCD.xsvf"
+INFO:iMPACT:501 - '1': Added Device BoundaryScanFile successfully.
+----------------------------------------------------------------------
+GUI --- Auto connect to cable...
+// *** BATCH CMD : setCable -port auto
+INFO:iMPACT - Digilent Plugin: Plugin Version: 2.4.4
+INFO:iMPACT - Digilent Plugin: found 1 device(s).
+INFO:iMPACT - Digilent Plugin: opening device: "DCabUsb", SN:50003C040617
+INFO:iMPACT - Digilent Plugin: User Name: DCabUsb
+INFO:iMPACT - Digilent Plugin: Product Name: JTAG-USB Cable
+INFO:iMPACT - Digilent Plugin: Serial Number: 50003C040617
+INFO:iMPACT - Digilent Plugin: Product ID: 30100203
+INFO:iMPACT - Digilent Plugin: Firmware Version: 030A
+INFO:iMPACT - Digilent Plugin: JTAG Port Number: 0
+INFO:iMPACT - Digilent Plugin: JTAG Clock Frequency: 1600000 Hz
+INFO:iMPACT - Current time: 3/24/2022 12:46:00 AM
+// *** BATCH CMD : Play 
+XSVF Interpreter v5.01, Xilinx, Inc.
+XSVF file = C:/Users/ducan/OneDrive/Undergraduate Classes/MicrocomputerDesign/Program/MCD/MCD.xsvf
+PROGRESS_START - Starting Operation.
+Execution Time = 51.920 seconds
+The xsvf execute operation completed sucessfully.
+PROGRESS_END - End Operation.
+Elapsed time =     52 sec.
+Project: 'C:\Users\ducan\OneDrive\Undergraduate Classes\MicrocomputerDesign\Program\MCD\\auto_project.ipf' created.
+// *** BATCH CMD : setMode -bs
+// *** BATCH CMD : setMode -ss
+// *** BATCH CMD : setMode -sm
+// *** BATCH CMD : setMode -hw140
+// *** BATCH CMD : setMode -spi
+// *** BATCH CMD : setMode -acecf
+// *** BATCH CMD : setMode -acempm
+// *** BATCH CMD : setMode -pff
+// *** BATCH CMD : setMode -bs
+// *** BATCH CMD : saveProjectFile -file "C:\Users\ducan\OneDrive\UndergraduateClasses\Microcomputer Design\Program\MCD\\auto_project.ipf"
+// *** BATCH CMD : setMode -bs
+INFO:iMPACT - Launching WebTalk, please refer to the webtalk log at   C:\Users\ducan\OneDrive\Undergraduate Classes\Microcomputer   Design\Program\MCD\webtalk.log for details.
+INFO:iMPACT - Running wbtc successfully.
+// *** BATCH CMD : setMode -bs
+// *** BATCH CMD : deleteDevice -position 1
+// *** BATCH CMD : setMode -bs
+// *** BATCH CMD : setMode -ss
+// *** BATCH CMD : setMode -sm
+// *** BATCH CMD : setMode -hw140
+// *** BATCH CMD : setMode -spi
+// *** BATCH CMD : setMode -acecf
+// *** BATCH CMD : setMode -acempm
+// *** BATCH CMD : setMode -pff

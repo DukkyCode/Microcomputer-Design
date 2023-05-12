@@ -1,0 +1,101 @@
+00001F00 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 4/20/2022 4:37:04 PM
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : I/O Echo Test
+00000000                             3  * Written by : Jacob Kelsey
+00000000                             4  * Date       : 2021-04-14
+00000000                             5  * Description: Sets Duart to normal mode, then loops to always output the input
+00000000                             6  *-----------------------------------------------------------
+00000000                             7  ; Definitions
+00000000  =00010000                  8  STACK       EQU     $10000                  ; Stack Pointer, must point to RAM (grows down)
+00000000  =00020000                  9  DUART       EQU     $20000                  ; DUART address
+00000000                            10  ; DUART sub-addresses
+00000000  =00000001                 11  MRA         EQU     $1                      ; Mode Register A(if Reading)
+00000000  =00000003                 12  SRA         EQU     $3                      ; Status Register A(if Reading)
+00000000  =00000003                 13  CSRA        EQU     $3                      ; Clock Select Register A(if Writing)
+00000000  =00000005                 14  CRA         EQU     $5                      ; Command Register A(if Writing)
+00000000  =00000007                 15  HRA         EQU     $7                      ; Holding Register A (Rx if Read, Tx if Write)
+00000000  =00000009                 16  ACR         EQU     $9                      ; Auxiliary Control Register (if Writing)
+00000000                            17  ; Other DUART definitions
+00000000  =00000010                 18  MRA_rst     EQU     $10                     ; Reset MRA pointer to MR1A
+00000000  =00000020                 19  RxA_rst     EQU     $20                     ; Software reset RxA
+00000000  =00000030                 20  TxA_rst     EQU     $30                     ; Software reset TxA
+00000000  =00000005                 21  CR_Enabl    EQU     $05                     ; Tx/Rx Enable
+00000000  =00000080                 22  ACR_BAUD    EQU     $80                     ; Use 2nd baud rate table (for speed 19.2k)
+00000000  =000000CC                 23  CSR_BAUD    EQU     $CC                     ; Baud rate value = 19,200
+00000000  =00000013                 24  MR1_Set     EQU     $13                     ; 8-bits, no parity, 1 stop bit
+00000000  =00000007                 25  MR2_Norm    EQU     $07                     ; Normal mode, CTS/RTS disabled, stop bit length = 1
+00000000  =00000047                 26  MR2_Echo    EQU     $47                     ; Auto-echo, CTS/RTS disabled, stop bit length = 1
+00000000                            27  
+00000000  =00000000                 28  Rx_ready    EQU     $0                      ; Recieve ready bit position
+00000000  =00000002                 29  Tx_ready    EQU     $2                      ; Transmit ready bit position
+00000000                            30  ; End Definitions
+00000000                            31  
+00000000                            32  ; CPU setup
+00000000                            33              ORG     $000000
+00000000= 00010000                  34              DC.L    STACK                   ; Set SP
+00000004= 00001F00                  35              DC.L    DUART_init              ; Set initial Program Counter
+00000008                            36  ; End CPU setup
+00000008                            37  
+00001F00                            38              ORG     $1F00                   ; Start program at $000400
+00001F00  41F9 00020000             39  DUART_init  LEA     DUART, A0               ; Put DUART address into A0
+00001F06                            40  ; Software_Reset
+00001F06  117C 0010 0005            41              MOVE.B  #MRA_rst, CRA(A0)       ; Reset MRA pointer
+00001F0C  117C 0020 0005            42              MOVE.B  #RxA_rst, CRA(A0)       ; Reset RxA
+00001F12  117C 0030 0005            43              MOVE.B  #TxA_rst, CRA(A0)       ; Reset TxA
+00001F18                            44  ; Initialization
+00001F18  117C 0080 0009            45              MOVE.B  #ACR_BAUD,  ACR(A0)     ; Selects baud rate set 2
+00001F1E  117C 00CC 0003            46              MOVE.B  #CSR_BAUD, CSRA(A0)     ; Set 19.2k baud Rx/Tx
+00001F24  117C 0013 0001            47              MOVE.B  #MR1_Set,   MRA(A0)     ; 8-bits, no parity, 1 stop bit
+00001F2A                            48  ; MR2_Echo for auto-echo, swap for MR2_Norm to run normally
+00001F2A  117C 0007 0001            49              MOVE.B  #MR2_Norm, MRA(A0)      ; Set Duart to normal mode
+00001F30  117C 0005 0005            50              MOVE.B  #CR_Enabl, CRA(A0)      ; Enable both Tx and Rx on channel A
+00001F36                            51              
+00001F36  6100 0004                 52  IO_Loop     BSR     get_char
+00001F3A  60FA                      53              BRA     IO_Loop
+00001F3C                            54              
+00001F3C  0828 0000 0003            55  get_char    BTST    #Rx_ready, SRA(A0)      ; Check if Rx has input
+00001F42  67F8                      56              BEQ     get_char                ; If not then wait
+00001F44  1228 0007                 57              MOVE.B  HRA(A0), D1             ; Move char from Rx Holding into D1
+00001F48  6100 0004                 58              BSR     out_char                ; Immediately display on screen
+00001F4C  4E75                      59              RTS     ; Return
+00001F4E                            60              
+00001F4E  0828 0002 0003            61  out_char    BTST    #Tx_ready, SRA(A0)      ; Check if Tx ready 
+00001F54  67F8                      62              BEQ     out_char                ; If not then wait
+00001F56  1141 0007                 63              MOVE.B  D1, HRA(A0)             ; Put char from D1 into Tx Holding
+00001F5A  4E75                      64              RTS     ; Return
+00001F5C                            65  
+00001F5C                            66              END     DUART_INIT
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ACR                 9
+ACR_BAUD            80
+CRA                 5
+CR_ENABL            5
+CSRA                3
+CSR_BAUD            CC
+DUART               20000
+DUART_INIT          1F00
+GET_CHAR            1F3C
+HRA                 7
+IO_LOOP             1F36
+MR1_SET             13
+MR2_ECHO            47
+MR2_NORM            7
+MRA                 1
+MRA_RST             10
+OUT_CHAR            1F4E
+RXA_RST             20
+RX_READY            0
+SRA                 3
+STACK               10000
+TXA_RST             30
+TX_READY            2

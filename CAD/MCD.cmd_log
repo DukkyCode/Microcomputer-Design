@@ -1,0 +1,188 @@
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -i -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -i -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+ngdbuild -intstyle ise -dd _ngo -i -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+taengine -intstyle ise -f MCD -w --format html1 -l MCD_html/tim/timing_report.htm 
+-cwd "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD" timingan_cpld -intstyle ise "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.vm6" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc MCD.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+ngdbuild -intstyle ise -dd _ngo -i -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+ngdbuild -intstyle ise -dd _ngo -i -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+taengine -intstyle ise -f MCD -w --format html1 -l MCD_html/tim/timing_report.htm 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+xst -intstyle ise -ifn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.xst" -ofn "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 
+ngdbuild -intstyle ise -dd _ngo -uc cpld.ucf -p xc9572-PC84-7 "MCD.ngc" MCD.ngd  
+cpldfit -intstyle ise -p xc9572-7-PC84 -ofmt vhdl -optimize speed -htmlrpt -loc on -slew fast -init low -inputs 36 -pterms 25 -power std -localfbk -pinfbk MCD.ngd 
+XSLTProcess MCD_build.xml 
+tsim -intstyle ise MCD MCD.nga 
+hprep6 -s IEEE1149 -n MCD -i MCD 

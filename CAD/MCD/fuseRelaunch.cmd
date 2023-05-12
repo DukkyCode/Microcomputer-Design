@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD_isim_beh.exe" -prj "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD_beh.prj" "work.MCD" 

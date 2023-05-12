@@ -1,0 +1,445 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="paths.js"></script><script src="eqns.js"></script><script>
+      var design = "MCD";
+      var device = "XC9572";
+      signals = new Array("A_Enable0_SPECSIG","A_Enable1_SPECSIG","BERR","BGACK","BR","CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER12_SPECSIG","CLOCK_COUNTER13_SPECSIG","CLOCK_COUNTER14_SPECSIG","CLOCK_COUNTER15_SPECSIG","CLOCK_COUNTER16_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","DUART","IPL0","IPL1","IPL2","LED0_SPECSIG","LED1_SPECSIG","LED2_SPECSIG","LED3_SPECSIG","LED4_SPECSIG","LED5_SPECSIG","LED6_SPECSIG","LED7_SPECSIG","LRAM","LROM","READ_ENABLE","URAM","UROM","VPA","WRITE_ENABLE");
+      sigNegs = new Array("OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","ON","OFF","OFF","ON","OFF","OFF");
+      sigTypes = new Array("","","","","","T","T","T","T","T","T","T","T","T","T","T","T","T","T","T","T","T","","","","","T","T","T","T","T","T","T","T","","","","","","","");
+
+      
+        specSig["LED4_SPECSIG"]=new Array("LED<4>");
+      
+        specSig["LED7_SPECSIG"]=new Array("LED<7>");
+      
+        specSig["LED2_SPECSIG"]=new Array("LED<2>");
+      
+        specSig["LED1_SPECSIG"]=new Array("LED<1>");
+      
+        specSig["LED6_SPECSIG"]=new Array("LED<6>");
+      
+        specSig["LED5_SPECSIG"]=new Array("LED<5>");
+      
+        specSig["LED0_SPECSIG"]=new Array("LED<0>");
+      
+        specSig["LED3_SPECSIG"]=new Array("LED<3>");
+      
+        specSig["b_SPECSIG"]=new Array("(b)");
+      
+        specSig["CLOCK_COUNTER16_SPECSIG"]=new Array("CLOCK_COUNTER<16>");
+      
+        specSig["CLOCK_COUNTER14_SPECSIG"]=new Array("CLOCK_COUNTER<14>");
+      
+        specSig["CLOCK_COUNTER12_SPECSIG"]=new Array("CLOCK_COUNTER<12>");
+      
+        specSig["A_Enable1_SPECSIG"]=new Array("A_Enable<1>");
+      
+        specSig["CLOCK_COUNTER3_SPECSIG"]=new Array("CLOCK_COUNTER<3>");
+      
+        specSig["CLOCK_COUNTER1_SPECSIG"]=new Array("CLOCK_COUNTER<1>");
+      
+        specSig["CLOCK_COUNTER8_SPECSIG"]=new Array("CLOCK_COUNTER<8>");
+      
+        specSig["CLOCK_COUNTER7_SPECSIG"]=new Array("CLOCK_COUNTER<7>");
+      
+        specSig["CLOCK_COUNTER6_SPECSIG"]=new Array("CLOCK_COUNTER<6>");
+      
+        specSig["CLOCK_COUNTER5_SPECSIG"]=new Array("CLOCK_COUNTER<5>");
+      
+        specSig["CLOCK_COUNTER4_SPECSIG"]=new Array("CLOCK_COUNTER<4>");
+      
+        specSig["CLOCK_COUNTER11_SPECSIG"]=new Array("CLOCK_COUNTER<11>");
+      
+        specSig["A_Enable0_SPECSIG"]=new Array("A_Enable<0>");
+      
+        specSig["CLOCK_COUNTER15_SPECSIG"]=new Array("CLOCK_COUNTER<15>");
+      
+        specSig["CLOCK_COUNTER13_SPECSIG"]=new Array("CLOCK_COUNTER<13>");
+      
+        specSig["CLOCK_COUNTER0_SPECSIG"]=new Array("CLOCK_COUNTER<0>");
+      
+        specSig["CLOCK_COUNTER10_SPECSIG"]=new Array("CLOCK_COUNTER<10>");
+      
+        specSig["CLOCK_COUNTER12LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<12>.LFBK");
+      
+        specSig["CLOCK_COUNTER13LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<13>.LFBK");
+      
+        specSig["CLOCK_COUNTER14LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<14>.LFBK");
+      
+        specSig["CLOCK_COUNTER15LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<15>.LFBK");
+      
+        specSig["CLOCK_COUNTER16LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<16>.LFBK");
+      
+        specSig["CLOCK_COUNTER17LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<17>.LFBK");
+      
+        specSig["CLOCK_COUNTER18LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<18>.LFBK");
+      
+        specSig["CLOCK_COUNTER19LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<19>.LFBK");
+      
+        specSig["CLOCK_COUNTER20LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<20>.LFBK");
+      
+        specSig["CLOCK_COUNTER21LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<21>.LFBK");
+      
+        specSig["CLOCK_COUNTER22LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<22>.LFBK");
+      
+        specSig["CLOCK_COUNTER23LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<23>.LFBK");
+      
+        specSig["CLOCK_COUNTER2_SPECSIG"]=new Array("CLOCK_COUNTER<2>");
+      
+        specSig["CLOCK_COUNTER9_SPECSIG"]=new Array("CLOCK_COUNTER<9>");
+      
+        specSig["CLOCK_COUNTER0LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<0>.LFBK");
+      
+        specSig["CLOCK_COUNTER1LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<1>.LFBK");
+      
+        specSig["CLOCK_COUNTER2LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<2>.LFBK");
+      
+        specSig["CLOCK_COUNTER10LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<10>.LFBK");
+      
+        specSig["CLOCK_COUNTER4LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<4>.LFBK");
+      
+        specSig["CLOCK_COUNTER5LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<5>.LFBK");
+      
+        specSig["CLOCK_COUNTER6LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<6>.LFBK");
+      
+        specSig["CLOCK_COUNTER7LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<7>.LFBK");
+      
+        specSig["CLOCK_COUNTER8LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<8>.LFBK");
+      
+        specSig["CLOCK_COUNTER9LFBK_SPECSIG"]=new Array("CLOCK_COUNTER<9>.LFBK");
+      
+            pterms["FB1_1_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG","CLOCK_COUNTER17LFBK_SPECSIG","CLOCK_COUNTER18LFBK_SPECSIG","CLOCK_COUNTER19LFBK_SPECSIG","CLOCK_COUNTER20LFBK_SPECSIG");
+          
+            pterms["FB1_2_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG","CLOCK_COUNTER17LFBK_SPECSIG","CLOCK_COUNTER18LFBK_SPECSIG","CLOCK_COUNTER19LFBK_SPECSIG","CLOCK_COUNTER20LFBK_SPECSIG","CLOCK_COUNTER21LFBK_SPECSIG","CLOCK_COUNTER22LFBK_SPECSIG","CLOCK_COUNTER23LFBK_SPECSIG");
+          
+            pterms["FB1_3_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG","CLOCK_COUNTER17LFBK_SPECSIG","CLOCK_COUNTER18LFBK_SPECSIG");
+          
+            pterms["FB1_4_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG","CLOCK_COUNTER17LFBK_SPECSIG");
+          
+            pterms["FB1_5_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG","CLOCK_COUNTER17LFBK_SPECSIG","CLOCK_COUNTER18LFBK_SPECSIG","CLOCK_COUNTER19LFBK_SPECSIG","CLOCK_COUNTER20LFBK_SPECSIG","CLOCK_COUNTER21LFBK_SPECSIG","CLOCK_COUNTER22LFBK_SPECSIG");
+          
+            pterms["FB1_6_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG","CLOCK_COUNTER17LFBK_SPECSIG","CLOCK_COUNTER18LFBK_SPECSIG","CLOCK_COUNTER19LFBK_SPECSIG","CLOCK_COUNTER20LFBK_SPECSIG","CLOCK_COUNTER21LFBK_SPECSIG");
+          
+            pterms["FB1_7_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG");
+          
+            pterms["FB1_8_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG","CLOCK_COUNTER16LFBK_SPECSIG","CLOCK_COUNTER17LFBK_SPECSIG","CLOCK_COUNTER18LFBK_SPECSIG","CLOCK_COUNTER19LFBK_SPECSIG");
+          
+            pterms["FB1_11_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG","CLOCK_COUNTER15LFBK_SPECSIG");
+          
+            pterms["FB1_12_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG","CLOCK_COUNTER14LFBK_SPECSIG");
+          
+            pterms["FB1_13_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG","CLOCK_COUNTER13LFBK_SPECSIG");
+          
+            pterms["FB1_14_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG","CLOCK_COUNTER12LFBK_SPECSIG");
+          
+            pterms["FB1_17_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER10_SPECSIG","CLOCK_COUNTER11_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4_SPECSIG","CLOCK_COUNTER5_SPECSIG","CLOCK_COUNTER6_SPECSIG","CLOCK_COUNTER7_SPECSIG","CLOCK_COUNTER8_SPECSIG","CLOCK_COUNTER9_SPECSIG");
+          
+            pterms["FB2_12_1"]=new Array("CLOCK_COUNTER0LFBK_SPECSIG","CLOCK_COUNTER1LFBK_SPECSIG","CLOCK_COUNTER2LFBK_SPECSIG");
+          
+            pterms["FB2_13_1"]=new Array("/RW");
+          
+            pterms["FB2_14_1"]=new Array("RW");
+          
+            pterms["FB2_16_1"]=new Array("CLOCK_COUNTER0LFBK_SPECSIG","CLOCK_COUNTER1LFBK_SPECSIG");
+          
+            pterms["FB2_17_1"]=new Array("CLOCK_COUNTER0LFBK_SPECSIG");
+          
+            pterms["FB3_3_1"]=new Array("/AS","/UDS");
+          
+            pterms["FB3_4_1"]=new Array("/LDS","/AS");
+          
+            pterms["FB3_5_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4LFBK_SPECSIG","CLOCK_COUNTER5LFBK_SPECSIG","CLOCK_COUNTER6LFBK_SPECSIG","CLOCK_COUNTER7LFBK_SPECSIG","CLOCK_COUNTER8LFBK_SPECSIG");
+          
+            pterms["FB3_8_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4LFBK_SPECSIG","CLOCK_COUNTER5LFBK_SPECSIG","CLOCK_COUNTER6LFBK_SPECSIG","CLOCK_COUNTER7LFBK_SPECSIG");
+          
+            pterms["FB3_10_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4LFBK_SPECSIG","CLOCK_COUNTER5LFBK_SPECSIG","CLOCK_COUNTER6LFBK_SPECSIG");
+          
+            pterms["FB3_12_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4LFBK_SPECSIG","CLOCK_COUNTER5LFBK_SPECSIG");
+          
+            pterms["FB3_13_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4LFBK_SPECSIG");
+          
+            pterms["FB3_16_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG");
+          
+            pterms["FB3_17_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4LFBK_SPECSIG","CLOCK_COUNTER5LFBK_SPECSIG","CLOCK_COUNTER6LFBK_SPECSIG","CLOCK_COUNTER7LFBK_SPECSIG","CLOCK_COUNTER8LFBK_SPECSIG","CLOCK_COUNTER9LFBK_SPECSIG","CLOCK_COUNTER10LFBK_SPECSIG");
+          
+            pterms["FB3_18_1"]=new Array("CLOCK_COUNTER0_SPECSIG","CLOCK_COUNTER1_SPECSIG","CLOCK_COUNTER2_SPECSIG","CLOCK_COUNTER3_SPECSIG","CLOCK_COUNTER4LFBK_SPECSIG","CLOCK_COUNTER5LFBK_SPECSIG","CLOCK_COUNTER6LFBK_SPECSIG","CLOCK_COUNTER7LFBK_SPECSIG","CLOCK_COUNTER8LFBK_SPECSIG","CLOCK_COUNTER9LFBK_SPECSIG");
+          
+          d2["LED4_SPECSIG"]=new Array("FB1_1_1");
+          
+            d2imp["LED4_SPECSIG"]=new Array("0");
+          
+              gblclk["LED4_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED4_SPECSIG"]="GND";
+          d2["LED7_SPECSIG"]=new Array("FB1_2_1");
+          
+            d2imp["LED7_SPECSIG"]=new Array("0");
+          
+              gblclk["LED7_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED7_SPECSIG"]="GND";
+          d2["LED2_SPECSIG"]=new Array("FB1_3_1");
+          
+            d2imp["LED2_SPECSIG"]=new Array("0");
+          
+              gblclk["LED2_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED2_SPECSIG"]="GND";
+          d2["LED1_SPECSIG"]=new Array("FB1_4_1");
+          
+            d2imp["LED1_SPECSIG"]=new Array("0");
+          
+              gblclk["LED1_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED1_SPECSIG"]="GND";
+          d2["LED6_SPECSIG"]=new Array("FB1_5_1");
+          
+            d2imp["LED6_SPECSIG"]=new Array("0");
+          
+              gblclk["LED6_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED6_SPECSIG"]="GND";
+          d2["LED5_SPECSIG"]=new Array("FB1_6_1");
+          
+            d2imp["LED5_SPECSIG"]=new Array("0");
+          
+              gblclk["LED5_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED5_SPECSIG"]="GND";
+          d2["LED0_SPECSIG"]=new Array("FB1_7_1");
+          
+            d2imp["LED0_SPECSIG"]=new Array("0");
+          
+              gblclk["LED0_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED0_SPECSIG"]="GND";
+          d2["LED3_SPECSIG"]=new Array("FB1_8_1");
+          
+            d2imp["LED3_SPECSIG"]=new Array("0");
+          
+              gblclk["LED3_SPECSIG"]=new Array("CPU_Clock");
+            prld["LED3_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER16_SPECSIG"]=new Array("FB1_11_1");
+          
+            d2imp["CLOCK_COUNTER16_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER16_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER16_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER15_SPECSIG"]=new Array("FB1_12_1");
+          
+            d2imp["CLOCK_COUNTER15_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER15_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER15_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER14_SPECSIG"]=new Array("FB1_13_1");
+          
+            d2imp["CLOCK_COUNTER14_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER14_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER14_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER13_SPECSIG"]=new Array("FB1_14_1");
+          
+            d2imp["CLOCK_COUNTER13_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER13_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER13_SPECSIG"]="GND";
+          d2["DUART"]=new Array("VCC");
+          
+            d2imp["DUART"]=new Array("0");
+          
+          d2["VPA"]=new Array("VCC");
+          
+            d2imp["VPA"]=new Array("0");
+          
+          d2["CLOCK_COUNTER12_SPECSIG"]=new Array("FB1_17_1");
+          
+            d2imp["CLOCK_COUNTER12_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER12_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER12_SPECSIG"]="GND";
+          d2["BGACK"]=new Array("VCC");
+          
+            d2imp["BGACK"]=new Array("0");
+          
+          d2["A_Enable1_SPECSIG"]=new Array("GND");
+          
+            d2imp["A_Enable1_SPECSIG"]=new Array("0");
+          
+          d2["CLOCK_COUNTER3_SPECSIG"]=new Array("FB2_12_1");
+          
+            d2imp["CLOCK_COUNTER3_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER3_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER3_SPECSIG"]="GND";
+          d2["READ_ENABLE"]=new Array("FB2_13_1");
+          
+            d2imp["READ_ENABLE"]=new Array("0");
+          
+          d2["WRITE_ENABLE"]=new Array("FB2_14_1");
+          
+            d2imp["WRITE_ENABLE"]=new Array("0");
+          
+          d2["BERR"]=new Array("VCC");
+          
+            d2imp["BERR"]=new Array("0");
+          
+          d2["CLOCK_COUNTER2_SPECSIG"]=new Array("FB2_16_1");
+          
+            d2imp["CLOCK_COUNTER2_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER2_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER2_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER1_SPECSIG"]=new Array("FB2_17_1");
+          
+            d2imp["CLOCK_COUNTER1_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER1_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER1_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER0_SPECSIG"]=new Array("VCC");
+          
+            d2imp["CLOCK_COUNTER0_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER0_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER0_SPECSIG"]="GND";
+          d2["UROM"]=new Array("FB3_3_1");
+          
+            d2imp["UROM"]=new Array("0");
+          
+          d2["LROM"]=new Array("FB3_4_1");
+          
+            d2imp["LROM"]=new Array("0");
+          
+          d2["CLOCK_COUNTER9_SPECSIG"]=new Array("FB3_5_1");
+          
+            d2imp["CLOCK_COUNTER9_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER9_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER9_SPECSIG"]="GND";
+          d2["LRAM"]=new Array("VCC");
+          
+            d2imp["LRAM"]=new Array("0");
+          
+          d2["IPL2"]=new Array("VCC");
+          
+            d2imp["IPL2"]=new Array("0");
+          
+          d2["CLOCK_COUNTER8_SPECSIG"]=new Array("FB3_8_1");
+          
+            d2imp["CLOCK_COUNTER8_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER8_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER8_SPECSIG"]="GND";
+          d2["BR"]=new Array("VCC");
+          
+            d2imp["BR"]=new Array("0");
+          
+          d2["CLOCK_COUNTER7_SPECSIG"]=new Array("FB3_10_1");
+          
+            d2imp["CLOCK_COUNTER7_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER7_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER7_SPECSIG"]="GND";
+          d2["URAM"]=new Array("VCC");
+          
+            d2imp["URAM"]=new Array("0");
+          
+          d2["CLOCK_COUNTER6_SPECSIG"]=new Array("FB3_12_1");
+          
+            d2imp["CLOCK_COUNTER6_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER6_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER6_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER5_SPECSIG"]=new Array("FB3_13_1");
+          
+            d2imp["CLOCK_COUNTER5_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER5_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER5_SPECSIG"]="GND";
+          d2["IPL1"]=new Array("VCC");
+          
+            d2imp["IPL1"]=new Array("0");
+          
+          d2["IPL0"]=new Array("VCC");
+          
+            d2imp["IPL0"]=new Array("0");
+          
+          d2["CLOCK_COUNTER4_SPECSIG"]=new Array("FB3_16_1");
+          
+            d2imp["CLOCK_COUNTER4_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER4_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER4_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER11_SPECSIG"]=new Array("FB3_17_1");
+          
+            d2imp["CLOCK_COUNTER11_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER11_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER11_SPECSIG"]="GND";
+          d2["CLOCK_COUNTER10_SPECSIG"]=new Array("FB3_18_1");
+          
+            d2imp["CLOCK_COUNTER10_SPECSIG"]=new Array("0");
+          
+              gblclk["CLOCK_COUNTER10_SPECSIG"]=new Array("CPU_Clock");
+            prld["CLOCK_COUNTER10_SPECSIG"]="GND";
+          d2["A_Enable0_SPECSIG"]=new Array("GND");
+          
+            d2imp["A_Enable0_SPECSIG"]=new Array("0");
+          
+
+      uimSignals = new Array();
+
+      uimSigNegs = new Array();
+
+      uimPterms = new Array();
+      
+
+      
+        function getEqnList() {
+          var str = "<html><head><link type='text/css' href='style.css' rel='stylesheet'></head><body class='pgBgnd'>";
+          str += "<center><h3>Equations</h3></center>";
+          str += "<table width='90%' align='center' border='1' cellpadding='0' cellspacing='0'>";
+          for (s=0; s<uimSignals.length; s++) {
+            str += "<tr><td>";
+            str += retUimEqn(uimSignals[s]);
+            str += "</td></tr>";
+          }
+          for (s=0; s<signals.length; s++) {
+            str += "<tr><td>";
+            str += retEqn(signals[s]);
+            str += "</td></tr>";
+          }
+
+          var legend = retLegend();
+		      if (legend != "") {
+		        str += "<tr><td>" + legend + "</td></tr>";
+		      }
+
+          str += "</table>";
+          str += "<form><span class='pgRef'>";
+
+          if (!parent.leftnav.IsNS()) {
+            str += "<table width='90%' align='center'>";
+            str += "<tr><td align='left'><input type='button' value='back to top' ";
+            str += "onclick='javascript:parent.leftnav.showEqnAll()' ";
+            str += "onmouseover=\"window.status='goto top of page'; return true;\" ";
+            str += "onmouseout=\"window.status=''\">";
+            str += "</td>";
+            str += "<td align='right'>";
+            str += "<input type='button' value='print page' ";
+            str += "onclick='javascript:window.print()' ";
+            str += "onmouseover=\"window.status='print page'; return true;\" ";
+            str += "onmouseout=\"window.status=''\">";
+            str += "</td>";
+            str += "</tr></table>";
+          }
+          else {
+            str += "<table width='90%' align='center'>";
+            str += "<tr><td align='left'><a href='javascript:parent.leftnav.showEqnAll()'>back to top</a>";
+            str += "</td>";
+            str += "<td align='right'>";
+            str += "<a href='javascript:window.print()'>";
+            str += "print page</a>";
+            str += "</td>";
+            str += "</tr></table>";
+          }
+
+          str += "</span></form>";
+          str += "</body></html>";
+          return str;
+        }
+      
+    </script>
+</head></html>

@@ -1,0 +1,1567 @@
+00001F00 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 3/25/2023 8:39:54 PM
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Main Program
+00000000                             3  * Written by : Duc Anh Nguyen
+00000000                             4  * Date       : 4.9.2022
+00000000                             5  * Description: Monitor Program for the 68k Microcontroller 
+00000000                             6  *-----------------------------------------------------------
+00000000                             7                 
+00000000                             8  *=======================================================================
+00000000                             9  *ASCII Control Characters
+00000000  =00000020                 10  SPACE           EQU         $20
+00000000  =00000008                 11  BS              EQU         $08
+00000000  =0000000D                 12  CR              EQU         $0D
+00000000  =0000000A                 13  LF              EQU         $0A
+00000000  =0000001B                 14  ESC             EQU         $1B
+00000000  =00000003                 15  CTRL_C          EQU         $03
+00000000                            16  
+00000000                            17  *=======================================================================
+00000000                            18  *Stack Pointer
+00000000  =00018000                 19  STACK           EQU         $018000                         ; Stack Pointer, must point to RAM (grows down)
+00000000  =00016500                 20  OUTPUT          EQU         $016500
+00000000  =00016000                 21  INPUT           EQU         $016000
+00000000  =00015500                 22  SRECSTART       EQU         $015500
+00000000  =00015000                 23  SRECADDR        EQU         $015000
+00000000                            24  
+00000000                            25  
+00000000                            26  *=======================================================================
+00000000                            27  *Set Stack Counter and Initial Program Counter                                                                               
+00000000                            28  *Starting of Monitor Program
+00000000                            29                  ORG         $00000
+00000000= 00018000                  30                  DC.L        STACK
+00000004= 00001F00                  31                  DC.L        START
+00000008                            32                  
+00000008                            33  *Function Pointer                        
+00000008                            34  COMMAND_ADDRESS:
+00000008= 00001FE4                  35                  DC.L        MENU
+0000000C= 00001FF4                  36                  DC.L        HELP            
+00000010= 00002008                  37                  DC.L        RM 
+00000014= 00002056                  38                  DC.L        WM
+00000018= 0000208A                  39                  DC.L        RR
+0000001C= 00002668                  40                  DC.L        WR
+00000020= 000027C6                  41                  DC.L        LS
+00000024= 00002860                  42                  DC.L        RS
+00000028                            43  
+00000028                            44  
+00001F00                            45                  ORG         $01F00                               
+00001F00                            46  START:                                                                    
+00001F00  2F08                      47                  MOVE.L      A0, -(SP)                            ;Pushing A0 to the Stack
+00001F02                            48                  
+00001F02  307C 2976                 49                  MOVEA       #MONITOR, A0                         ;Print out menu
+00001F06  6100 09BE                 50                  BSR         OUTCHAR    
+00001F0A                            51   
+00001F0A  307C 2D08                 52                  MOVEA       #NEWLINE, A0                         ;Print new Line
+00001F0E  6100 09B6                 53                  BSR         OUTCHAR               
+00001F12                            54                  
+00001F12  205F                      55                  MOVE.L      (SP)+, A0                            ;Popping A0 from the stack
+00001F14                            56  
+00001F14                            57  *=======================================================================
+00001F14                            58  *A0: Input Buffer
+00001F14                            59  *A1: Output Buffer
+00001F14                            60  *Main program
+00001F14                            61  MAIN:            
+00001F14  207C 00010000             62                  MOVE.L      #$010000, A0
+00001F1A                            63                                                 
+00001F1A  2F08                      64                  MOVE.L      A0, -(SP)                            ;Pushing A0 to the Stack
+00001F1C                            65  
+00001F1C                            66  SPACE_LOOP0:                
+00001F1C  10FC 0020                 67                  MOVE.B      #SPACE, (A0)+
+00001F20  5202                      68                  ADDI.B      #$01, D2
+00001F22  0C02 0016                 69                  CMPI.B      #$16, D2
+00001F26  66F4                      70                  BNE         SPACE_LOOP0              
+00001F28                            71  
+00001F28  205F                      72                  MOVE.L      (SP)+, A0                            ;Popping A0 from the stack 
+00001F2A                            73  
+00001F2A  7400                      74                  MOVE.L      #$00, D2                             ;Reset D2
+00001F2C                            75  
+00001F2C  2F0C                      76                  MOVE.L      A4, -(SP)                            ;Push A4                
+00001F2E                            77                  
+00001F2E  49F9 00016500             78                  LEA         OUTPUT, A4
+00001F34                            79  SPACE_LOOP4:    
+00001F34  18FC 0020                 80                  MOVE.B      #SPACE, (A4)+
+00001F38  5202                      81                  ADDI.B      #$01, D2
+00001F3A  0C02 0024                 82                  CMPI.B      #$24, D2
+00001F3E  66F4                      83                  BNE         SPACE_LOOP4 
+00001F40                            84  
+00001F40  285F                      85                  MOVE.L      (SP)+, A4                            ;Pop A4   
+00001F42                            86  
+00001F42  7400                      87                  MOVE.L      #$00, D2
+00001F44                            88                                 
+00001F44  2F08                      89                  MOVE.L      A0, -(SP)                            ;Pushing A0 to the Stack
+00001F46                            90                  
+00001F46  307C 2D08                 91                  MOVEA       #NEWLINE, A0                         ;Print new Line
+00001F4A  6100 097A                 92                  BSR         OUTCHAR
+00001F4E                            93                      
+00001F4E  307C 2C60                 94                  MOVEA       #PROMPT, A0                          ;Main Prompt
+00001F52  6100 0972                 95                  BSR         OUTCHAR
+00001F56                            96                  
+00001F56  205F                      97                  MOVE.L      (SP)+, A0                            ;Popping A1 from the stack
+00001F58                            98                 
+00001F58  6100 093A                 99                  BSR         INCHAR                               ;Getting input from the user                     
+00001F5C                           100                         
+00001F5C  2F0A                     101                  MOVE.L      A2, -(SP)
+00001F5E  2F0B                     102                  MOVE.L      A3, -(SP)
+00001F60                           103                  
+00001F60  45F9 00002A82            104                  LEA         COMMAND_LIST, A2                     ;Load command table into A2
+00001F66  47F8 0008                105                  LEA         COMMAND_ADDRESS, A3                  ;Load command address into A3              
+00001F6A                           106  
+00001F6A                           107  *=======================================================================
+00001F6A                           108  *Input Handler
+00001F6A                           109  INPUT_HANDLER:
+00001F6A                           110  
+00001F6A                           111  LOOP:
+00001F6A  B508                     112                  CMPM.B       (A0)+, (A2)+
+00001F6C  6600 0018                113                  BNE          POP
+00001F70                           114                  
+00001F70  0C10 0020                115                  CMPI.B       #SPACE, (A0)
+00001F74  66F4                     116                  BNE          LOOP
+00001F76                           117  
+00001F76  0C12 0020                118                  CMPI.B       #SPACE, (A2)
+00001F7A  6600 09DA                119                  BNE          ARGUMENT_ERROR
+00001F7E                           120                                 
+00001F7E  2A53                     121                  MOVE.L      (A3), A5
+00001F80                           122                  
+00001F80  265F                     123                  MOVE.L      (SP)+, A3
+00001F82  245F                     124                  MOVE.L      (SP)+, A2
+00001F84                           125                                  
+00001F84  4ED5                     126                  JMP         (A5) 
+00001F86                           127                                                                                                                                                           
+00001F86                           128  POP:
+00001F86  207C 00010000            129                  MOVE.L      #$010000, A0                           ;Pop A0
+00001F8C                           130  
+00001F8C                           131  FIND_NEXT:
+00001F8C  0C1A 0000                132                  CMPI.B      #$00, (A2)+                         ;Find the next character in the list
+00001F90  66FA                     133                  BNE         FIND_NEXT
+00001F92  584B                     134                  ADD         #$04, A3                            ;Find the location of the next command                
+00001F94  B4FC 2AA5                135                  CMPA        #MENU_HELP, A2                      ;Hardcode the end of your program
+00001F98  6E00 09BC                136                  BGT         ARGUMENT_ERROR                      ;If reach the argument length
+00001F9C                           137                  
+00001F9C  4EF8 1F6A                138                  JMP         INPUT_HANDLER
+00001FA0                           139  
+00001FA0                           140  *=======================================================================
+00001FA0                           141  *Argument Handler
+00001FA0                           142  GET_ARG:
+00001FA0  5248                     143                  ADD         #$01, A0
+00001FA2  0C10 0024                144                  CMPI.B      #$24, (A0)
+00001FA6  6600 09AE                145                  BNE         ARGUMENT_ERROR
+00001FAA  7E00                     146                  MOVEQ       #$00, D7
+00001FAC  7C00                     147                  MOVEQ       #$00, D6
+00001FAE                           148  ADD_ARG:
+00001FAE  5248                     149                  ADD         #$01, A0
+00001FB0  E99F                     150                  ROL.L       #4, D7
+00001FB2  DE86                     151                  ADD.L       D6, D7
+00001FB4  1C18                     152                  MOVE.B      (A0)+, D6
+00001FB6  0C06 0039                153                  CMPI.B      #$39, D6
+00001FBA  6F00 0004                154                  BLE         NUM
+00001FBE  5F06                     155                  SUBQ.B      #$07,D6
+00001FC0                           156  
+00001FC0                           157  NUM:
+00001FC0  0406 0030                158                  SUB.B       #$30, D6
+00001FC4  0C20 0000                159                  CMPI.B      #$00, -(A0)
+00001FC8  6700 0014                160                  BEQ         GOT_ARG
+00001FCC  0C10 0020                161                  CMPI.B      #SPACE, (A0)
+00001FD0  6700 000C                162                  BEQ         GOT_ARG
+00001FD4  0C10 003B                163                  CMPI.B      #$3B, (A0)
+00001FD8  6700 0004                164                  BEQ         GOT_ARG
+00001FDC  60D0                     165                  BRA         ADD_ARG
+00001FDE                           166                  
+00001FDE                           167  GOT_ARG:
+00001FDE  4E75                     168                  RTS
+00001FE0                           169  
+00001FE0                           170  *=======================================================================
+00001FE0                           171                                    
+00001FE0                           172  END:
+00001FE0  FFFF FFFF                173                  SIMHALT             ; halt simulator
+00001FE4                           174  
+00001FE4                           175  *======================================================================
+00001FE4                           176  *Subfunction of the main program                               
+00001FE4                           177  *Menu Sub-function
+00001FE4                           178  MENU:
+00001FE4  2F08                     179                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00001FE6                           180                  
+00001FE6  307C 29DC                181                  MOVEA       #MENU_LIST,A0                       ;Print Menu List
+00001FEA  6100 08DA                182                  BSR         OUTCHAR               
+00001FEE                           183                  
+00001FEE  205F                     184                  MOVE.L      (SP)+, A0                          ;Popping A0 to the Stack
+00001FF0                           185                  
+00001FF0  4EF8 1F14                186                  JMP         MAIN
+00001FF4                           187                  
+00001FF4                           188  *Help Sub-function
+00001FF4                           189  HELP:
+00001FF4  2F08                     190                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00001FF6                           191                
+00001FF6  307C 2AA5                192                  MOVEA       #MENU_HELP,A0                       ;Print Menu Help
+00001FFA  6100 08CA                193                  BSR         OUTCHAR               
+00001FFE                           194                  
+00001FFE  205F                     195                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+00002000                           196                  
+00002000  4EF8 1F14                197                  JMP         MAIN
+00002004                           198  
+00002004                           199  EXIT:               
+00002004  4EF8 1FE0                200                  JMP         END
+00002008                           201  
+00002008                           202  
+00002008                           203  *======================================================================
+00002008                           204  *Read from Memory Sub-fucntion
+00002008                           205  RM:
+00002008  4EB8 1FA0                206                  JSR         GET_ARG
+0000200C                           207                                  
+0000200C  7200                     208                  MOVEQ       #$00, D1
+0000200E  207C 00010000            209                  MOVE.L      #$010000, A0                        ;Reset A0
+00002014                           210                  
+00002014  2F08                     211                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00002016                           212                
+00002016  307C 2C62                213                  MOVEA       #CONTENTS,A0                       ;Print Output
+0000201A  6100 08AA                214                  BSR         OUTCHAR               
+0000201E                           215                  
+0000201E  205F                     216                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+00002020                           217  
+00002020                           218                  
+00002020  2047                     219                  MOVE.L      D7, A0
+00002022                           220                  
+00002022  4EB9 00002900            221                  JSR         OUTHEX                              ;Print 1st byte
+00002028                           222                  
+00002028  5248                     223                  ADD         #$01, A0                            ;Print 2nd byte                
+0000202A  4EB9 00002900            224                  JSR         OUTHEX
+00002030                           225                  
+00002030  5248                     226                  ADD         #$01, A0                            ;Print 3rd byte                
+00002032  4EB9 00002900            227                  JSR         OUTHEX
+00002038                           228                  
+00002038  5248                     229                  ADD         #$01, A0                            ;Print 4 byte                
+0000203A  4EB9 00002900            230                  JSR         OUTHEX
+00002040                           231                                            
+00002040  207C 00000000            232                  MOVE.L      #$00, A0
+00002046                           233                  
+00002046  2F08                     234                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00002048                           235                
+00002048  307C 2D08                236                  MOVEA       #NEWLINE,A0                         ;Print Output
+0000204C  6100 0878                237                  BSR         OUTCHAR               
+00002050                           238                  
+00002050  205F                     239                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+00002052                           240                               
+00002052  4EF8 1F14                241                  JMP         MAIN
+00002056                           242                                                              
+00002056                           243  *======================================================================                
+00002056                           244  *Write from Memory Sub-fucntion
+00002056                           245  WM:
+00002056  2F09                     246                  MOVE.L      A1, -(SP)
+00002058  2F0A                     247                  MOVE.L      A2, -(SP)              
+0000205A                           248      
+0000205A  4EB8 1FA0                249                  JSR         GET_ARG
+0000205E                           250                  
+0000205E  45F9 00016000            251                  LEA         INPUT, A2
+00002064                           252                  
+00002064  2487                     253                  MOVE.L      D7, (A2)
+00002066                           254                  
+00002066  4EB8 1FA0                255                  JSR         GET_ARG
+0000206A                           256                  
+0000206A  2247                     257                  MOVE.L      D7, A1
+0000206C                           258                  
+0000206C  2292                     259                  MOVE.L      (A2), (A1)
+0000206E                           260                  
+0000206E  2F08                     261                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00002070                           262                
+00002070  307C 2C6D                263                  MOVEA       #OUTPUT_WM ,A0                      ;Print Output
+00002074  6100 0850                264                  BSR         OUTCHAR
+00002078                           265  
+00002078  307C 2D08                266                  MOVEA       #NEWLINE,A0                         ;Print New Line
+0000207C  6100 0848                267                  BSR         OUTCHAR               
+00002080                           268                  
+00002080  205F                     269                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+00002082  245F                     270                  MOVE.L      (SP)+, A2
+00002084  225F                     271                  MOVE.L      (SP)+, A1
+00002086                           272           
+00002086  4EF8 1F14                273                  JMP         MAIN
+0000208A                           274  
+0000208A                           275  *======================================================================
+0000208A                           276  *Read from Register Sub-fucntion
+0000208A                           277  RR:
+0000208A  5248                     278                  ADD         #$01, A0                            ;Reset Addresss Register  
+0000208C                           279  REGISTER_CHECK:                
+0000208C  0C10 0041                280                  CMPI.B      #$41, (A0)
+00002090  6700 000E                281                  BEQ         RR_A
+00002094  0C10 0044                282                  CMPI.B      #$44, (A0)
+00002098  6700 005C                283                  BEQ         RR_D
+0000209C  6000 08B8                284                  BRA         ARGUMENT_ERROR
+000020A0                           285                 
+000020A0                           286  RR_A:
+000020A0                           287                  *Condition Checking
+000020A0  5248                     288                  ADD         #$01, A0
+000020A2  0C10 0030                289                  CMPI.B      #$30, (A0)
+000020A6  6D00 08AE                290                  BLT         ARGUMENT_ERROR
+000020AA  0C10 0037                291                  CMPI.B      #$37, (A0)
+000020AE  6E00 08A6                292                  BGT         ARGUMENT_ERROR
+000020B2                           293                  
+000020B2                           294                  *Address Register Checking
+000020B2  0C10 0030                295                  CMPI.B      #$30, (A0)
+000020B6  6700 0300                296                  BEQ         READA0
+000020BA                           297                  
+000020BA  0C10 0031                298                  CMPI.B      #$31, (A0)
+000020BE  6700 034E                299                  BEQ         READA1
+000020C2                           300                  
+000020C2  0C10 0032                301                  CMPI.B      #$32, (A0)
+000020C6  6700 039C                302                  BEQ         READA2
+000020CA                           303                  
+000020CA  0C10 0033                304                  CMPI.B      #$33, (A0)
+000020CE  6700 03EA                305                  BEQ         READA3
+000020D2                           306                  
+000020D2  0C10 0034                307                  CMPI.B      #$34, (A0)
+000020D6  6700 0438                308                  BEQ         READA4
+000020DA                           309                  
+000020DA  0C10 0035                310                  CMPI.B      #$35, (A0)
+000020DE  6700 0486                311                  BEQ         READA5
+000020E2                           312                  
+000020E2  0C10 0036                313                  CMPI.B      #$36, (A0)
+000020E6  6700 04D4                314                  BEQ         READA6
+000020EA                           315                  
+000020EA  0C10 0037                316                  CMPI.B      #$37, (A0)
+000020EE  6700 0522                317                  BEQ         READA7
+000020F2                           318                  
+000020F2  4EF8 1F14                319                  JMP         MAIN                                 
+000020F6                           320  
+000020F6                           321  RR_D:
+000020F6                           322                  *Condition Checking
+000020F6  5248                     323                  ADD         #$01, A0
+000020F8  0C10 0030                324                  CMPI.B      #$30, (A0)
+000020FC  6D00 0858                325                  BLT         ARGUMENT_ERROR
+00002100  0C10 0037                326                  CMPI.B      #$37, (A0)
+00002104  6E00 0850                327                  BGT         ARGUMENT_ERROR
+00002108                           328                  
+00002108                           329                  *Data Register Checking               
+00002108  0C10 0030                330                  CMPI.B      #$30, (A0)
+0000210C  6700 003A                331                  BEQ         READD0
+00002110                           332                  
+00002110  0C10 0031                333                  CMPI.B      #$31, (A0)
+00002114  6700 0080                334                  BEQ         READD1
+00002118                           335                  
+00002118  0C10 0032                336                  CMPI.B      #$32, (A0)
+0000211C  6700 00C6                337                  BEQ         READD2
+00002120                           338                  
+00002120  0C10 0033                339                  CMPI.B      #$33, (A0)
+00002124  6700 010C                340                  BEQ         READD3
+00002128                           341                  
+00002128  0C10 0034                342                  CMPI.B      #$34, (A0)
+0000212C  6700 0152                343                  BEQ         READD4
+00002130                           344                  
+00002130  0C10 0035                345                  CMPI.B      #$35, (A0)
+00002134  6700 0198                346                  BEQ         READD5
+00002138                           347                  
+00002138  0C10 0036                348                  CMPI.B      #$36, (A0)
+0000213C  6700 01DE                349                  BEQ         READD6
+00002140                           350                  
+00002140  0C10 0037                351                  CMPI.B      #$37, (A0)
+00002144  6700 0224                352                  BEQ         READD7
+00002148                           353                                        
+00002148                           354  *======================================================================
+00002148                           355  *Read from Register function
+00002148                           356  READD0:
+00002148  2F00                     357                  MOVE.L      D0, -(SP)                   ;Push D0
+0000214A                           358                  
+0000214A  45F9 00016000            359                  LEA         INPUT, A2
+00002150  207C 00010000            360                  MOVE.L      #$010000, A0                 ;Reset A0
+00002156                           361                  
+00002156  2F08                     362                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002158                           363                
+00002158  307C 2C62                364                  MOVEA       #CONTENTS,A0                ;Print Output
+0000215C  6100 0768                365                  BSR         OUTCHAR               
+00002160                           366                  
+00002160  205F                     367                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002162                           368                  
+00002162                           369  
+00002162  2480                     370                  MOVE.L      D0, (A2)                   
+00002164                           371                  
+00002164  109A                     372                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+00002166  4EB9 00002900            373                  JSR         OUTHEX
+0000216C                           374  
+0000216C  109A                     375                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+0000216E  4EB9 00002900            376                  JSR         OUTHEX
+00002174                           377                  
+00002174  109A                     378                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+00002176  4EB9 00002900            379                  JSR         OUTHEX
+0000217C                           380                  
+0000217C  1092                     381                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+0000217E  4EB9 00002900            382                  JSR         OUTHEX
+00002184                           383                           
+00002184  201F                     384                  MOVE.L      (SP)+, D0                   ;Pop D0
+00002186                           385                  
+00002186  2F08                     386                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002188                           387                
+00002188  307C 2D08                388                  MOVEA       #NEWLINE,A0                 ;Print Output
+0000218C  6100 0738                389                  BSR         OUTCHAR               
+00002190                           390                  
+00002190  205F                     391                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002192                           392  
+00002192                           393  
+00002192  4EF8 1F14                394                  JMP         MAIN
+00002196                           395  
+00002196                           396  READD1:
+00002196  2F01                     397                  MOVE.L      D1, -(SP)                   ;Push D0
+00002198                           398                  
+00002198  45F9 00016000            399                  LEA         INPUT, A2
+0000219E  207C 00010000            400                  MOVE.L      #$010000, A0                    ;Reset A0
+000021A4                           401                  
+000021A4  2F08                     402                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000021A6                           403                
+000021A6  307C 2C62                404                  MOVEA       #CONTENTS,A0                ;Print Output
+000021AA  6100 071A                405                  BSR         OUTCHAR               
+000021AE                           406                  
+000021AE  205F                     407                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000021B0                           408                  
+000021B0                           409  
+000021B0  2481                     410                  MOVE.L      D1, (A2)                   
+000021B2                           411                  
+000021B2  109A                     412                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+000021B4  4EB9 00002900            413                  JSR         OUTHEX
+000021BA                           414  
+000021BA  109A                     415                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+000021BC  4EB9 00002900            416                  JSR         OUTHEX
+000021C2                           417                  
+000021C2  109A                     418                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+000021C4  4EB9 00002900            419                  JSR         OUTHEX
+000021CA                           420                  
+000021CA  1092                     421                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+000021CC  4EB9 00002900            422                  JSR         OUTHEX
+000021D2                           423                           
+000021D2  221F                     424                  MOVE.L      (SP)+, D1                   ;Pop D0
+000021D4                           425  
+000021D4  2F08                     426                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000021D6                           427                
+000021D6  307C 2D08                428                  MOVEA       #NEWLINE,A0                 ;Print Output
+000021DA  6100 06EA                429                  BSR         OUTCHAR               
+000021DE                           430                  
+000021DE  205F                     431                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000021E0                           432  
+000021E0                           433                  
+000021E0  4EF8 1F14                434                  JMP         MAIN
+000021E4                           435  
+000021E4                           436  READD2:
+000021E4  2F02                     437                  MOVE.L      D2, -(SP)                   ;Push D0
+000021E6                           438                  
+000021E6  45F9 00016000            439                  LEA         INPUT, A2
+000021EC  207C 00010000            440                  MOVE.L      #$010000, A0                    ;Reset A0
+000021F2                           441                  
+000021F2  2F08                     442                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000021F4                           443                
+000021F4  307C 2C62                444                  MOVEA       #CONTENTS,A0                ;Print Output
+000021F8  6100 06CC                445                  BSR         OUTCHAR               
+000021FC                           446                  
+000021FC  205F                     447                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000021FE                           448                  
+000021FE                           449  
+000021FE  2482                     450                  MOVE.L      D2, (A2)                   
+00002200                           451                  
+00002200  109A                     452                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+00002202  4EB9 00002900            453                  JSR         OUTHEX
+00002208                           454  
+00002208  109A                     455                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+0000220A  4EB9 00002900            456                  JSR         OUTHEX
+00002210                           457                  
+00002210  109A                     458                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+00002212  4EB9 00002900            459                  JSR         OUTHEX
+00002218                           460                  
+00002218  1092                     461                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+0000221A  4EB9 00002900            462                  JSR         OUTHEX
+00002220                           463                           
+00002220  241F                     464                  MOVE.L      (SP)+, D2                   ;Pop D0
+00002222                           465                  
+00002222  2F08                     466                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002224                           467                
+00002224  307C 2D08                468                  MOVEA       #NEWLINE,A0                 ;Print Output
+00002228  6100 069C                469                  BSR         OUTCHAR               
+0000222C                           470                  
+0000222C  205F                     471                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+0000222E                           472                                                 
+0000222E  4EF8 1F14                473                  JMP         MAIN
+00002232                           474  
+00002232                           475  READD3:
+00002232  2F03                     476                  MOVE.L      D3, -(SP)                   ;Push D0
+00002234                           477                  
+00002234  45F9 00016000            478                  LEA         INPUT, A2
+0000223A  207C 00010000            479                  MOVE.L      #$010000, A0                    ;Reset A0
+00002240                           480                  
+00002240  2F08                     481                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002242                           482                
+00002242  307C 2C62                483                  MOVEA       #CONTENTS,A0                ;Print Output
+00002246  6100 067E                484                  BSR         OUTCHAR               
+0000224A                           485                  
+0000224A  205F                     486                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+0000224C                           487                  
+0000224C                           488  
+0000224C  2483                     489                  MOVE.L      D3, (A2)                   
+0000224E                           490                  
+0000224E  109A                     491                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+00002250  4EB9 00002900            492                  JSR         OUTHEX
+00002256                           493  
+00002256  109A                     494                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+00002258  4EB9 00002900            495                  JSR         OUTHEX
+0000225E                           496                  
+0000225E  109A                     497                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+00002260  4EB9 00002900            498                  JSR         OUTHEX
+00002266                           499                  
+00002266  1092                     500                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+00002268  4EB9 00002900            501                  JSR         OUTHEX
+0000226E                           502                           
+0000226E  261F                     503                  MOVE.L      (SP)+, D3                   ;Pop D0
+00002270                           504                  
+00002270  2F08                     505                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002272                           506                
+00002272  307C 2D08                507                  MOVEA       #NEWLINE,A0                 ;Print Output
+00002276  6100 064E                508                  BSR         OUTCHAR               
+0000227A                           509                  
+0000227A  205F                     510                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+0000227C                           511                  
+0000227C  4EF8 1F14                512                  JMP         MAIN
+00002280                           513  
+00002280                           514  READD4:
+00002280  2F04                     515                  MOVE.L      D4, -(SP)                   ;Push D0
+00002282                           516                  
+00002282  45F9 00016000            517                  LEA         INPUT, A2
+00002288  207C 00010000            518                  MOVE.L      #$010000, A0                    ;Reset A0
+0000228E                           519                  
+0000228E  2F08                     520                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002290                           521                
+00002290  307C 2C62                522                  MOVEA       #CONTENTS,A0                ;Print Output
+00002294  6100 0630                523                  BSR         OUTCHAR               
+00002298                           524                  
+00002298  205F                     525                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+0000229A                           526                  
+0000229A                           527  
+0000229A  2484                     528                  MOVE.L      D4, (A2)                   
+0000229C                           529                  
+0000229C  109A                     530                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+0000229E  4EB9 00002900            531                  JSR         OUTHEX
+000022A4                           532  
+000022A4  109A                     533                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+000022A6  4EB9 00002900            534                  JSR         OUTHEX
+000022AC                           535                  
+000022AC  109A                     536                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+000022AE  4EB9 00002900            537                  JSR         OUTHEX
+000022B4                           538                  
+000022B4  1092                     539                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+000022B6  4EB9 00002900            540                  JSR         OUTHEX
+000022BC                           541                           
+000022BC  281F                     542                  MOVE.L      (SP)+, D4                   ;Pop D0
+000022BE                           543                  
+000022BE  2F08                     544                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000022C0                           545                
+000022C0  307C 2D08                546                  MOVEA       #NEWLINE,A0                 ;Print Output
+000022C4  6100 0600                547                  BSR         OUTCHAR               
+000022C8                           548                  
+000022C8  205F                     549                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000022CA                           550  
+000022CA                           551                  
+000022CA                           552                  
+000022CA  4EF8 1F14                553                  JMP         MAIN
+000022CE                           554  
+000022CE                           555  READD5:
+000022CE  2F05                     556                  MOVE.L      D5, -(SP)                   ;Push D0
+000022D0                           557                  
+000022D0  45F9 00016000            558                  LEA         INPUT, A2
+000022D6  207C 00010000            559                  MOVE.L      #$010000, A0                    ;Reset A0
+000022DC                           560                  
+000022DC  2F08                     561                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000022DE                           562                
+000022DE  307C 2C62                563                  MOVEA       #CONTENTS,A0                ;Print Output
+000022E2  6100 05E2                564                  BSR         OUTCHAR               
+000022E6                           565                  
+000022E6  205F                     566                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000022E8                           567                  
+000022E8                           568  
+000022E8  2485                     569                  MOVE.L      D5, (A2)                   
+000022EA                           570                  
+000022EA  109A                     571                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+000022EC  4EB9 00002900            572                  JSR         OUTHEX
+000022F2                           573  
+000022F2  109A                     574                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+000022F4  4EB9 00002900            575                  JSR         OUTHEX
+000022FA                           576                  
+000022FA  109A                     577                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+000022FC  4EB9 00002900            578                  JSR         OUTHEX
+00002302                           579                  
+00002302  1092                     580                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+00002304  4EB9 00002900            581                  JSR         OUTHEX
+0000230A                           582                           
+0000230A  2A1F                     583                  MOVE.L      (SP)+, D5                   ;Pop D0
+0000230C                           584                  
+0000230C  2F08                     585                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+0000230E                           586                
+0000230E  307C 2D08                587                  MOVEA       #NEWLINE,A0                 ;Print Output
+00002312  6100 05B2                588                  BSR         OUTCHAR               
+00002316                           589                  
+00002316  205F                     590                  MOVE.L      (SP)+, A0                    ;Popping A0 to the Stack
+00002318                           591  
+00002318                           592                  
+00002318  4EF8 1F14                593                  JMP         MAIN
+0000231C                           594  
+0000231C                           595  READD6:
+0000231C  2F06                     596                  MOVE.L      D6, -(SP)                   ;Push D0
+0000231E                           597                  
+0000231E  45F9 00016000            598                  LEA         INPUT, A2
+00002324  207C 00010000            599                  MOVE.L      #$010000, A0                    ;Reset A0
+0000232A                           600                  
+0000232A  2F08                     601                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+0000232C                           602                
+0000232C  307C 2C62                603                  MOVEA       #CONTENTS,A0                ;Print Output
+00002330  6100 0594                604                  BSR         OUTCHAR               
+00002334                           605                  
+00002334  205F                     606                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002336                           607                  
+00002336                           608  
+00002336  2486                     609                  MOVE.L      D6, (A2)                   
+00002338                           610                  
+00002338  109A                     611                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+0000233A  4EB9 00002900            612                  JSR         OUTHEX
+00002340                           613  
+00002340  109A                     614                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+00002342  4EB9 00002900            615                  JSR         OUTHEX
+00002348                           616                  
+00002348  109A                     617                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+0000234A  4EB9 00002900            618                  JSR         OUTHEX
+00002350                           619                  
+00002350  1092                     620                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+00002352  4EB9 00002900            621                  JSR         OUTHEX
+00002358                           622                           
+00002358  2C1F                     623                  MOVE.L      (SP)+, D6                   ;Pop D0
+0000235A                           624                  
+0000235A  2F08                     625                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+0000235C                           626                
+0000235C  307C 2D08                627                  MOVEA       #NEWLINE,A0                 ;Print Output
+00002360  6100 0564                628                  BSR         OUTCHAR               
+00002364                           629                  
+00002364  205F                     630                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002366                           631  
+00002366                           632                  
+00002366  4EF8 1F14                633                  JMP         MAIN
+0000236A                           634  
+0000236A                           635  READD7:
+0000236A  2F07                     636                  MOVE.L      D7, -(SP)                   ;Push D0
+0000236C                           637                  
+0000236C  45F9 00016000            638                  LEA         INPUT, A2
+00002372  207C 00010000            639                  MOVE.L      #$010000, A0                    ;Reset A0
+00002378                           640                  
+00002378  2F08                     641                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+0000237A                           642                
+0000237A  307C 2C62                643                  MOVEA       #CONTENTS,A0                ;Print Output
+0000237E  6100 0546                644                  BSR         OUTCHAR               
+00002382                           645                  
+00002382  205F                     646                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002384                           647                  
+00002384                           648  
+00002384  2487                     649                  MOVE.L      D7, (A2)                   
+00002386                           650                  
+00002386  109A                     651                  MOVE.B      (A2)+, (A0)                 ;1st Byte                              
+00002388  4EB9 00002900            652                  JSR         OUTHEX
+0000238E                           653  
+0000238E  109A                     654                  MOVE.B      (A2)+, (A0)                 ;2nd Byte                              
+00002390  4EB9 00002900            655                  JSR         OUTHEX
+00002396                           656                  
+00002396  109A                     657                  MOVE.B      (A2)+, (A0)                 ;3rd Byte                              
+00002398  4EB9 00002900            658                  JSR         OUTHEX
+0000239E                           659                  
+0000239E  1092                     660                  MOVE.B      (A2), (A0)                  ;1st Byte                              
+000023A0  4EB9 00002900            661                  JSR         OUTHEX
+000023A6                           662                           
+000023A6  2E1F                     663                  MOVE.L      (SP)+, D7                   ;Pop D0
+000023A8                           664                  
+000023A8  2F08                     665                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000023AA                           666                
+000023AA  307C 2D08                667                  MOVEA       #NEWLINE,A0                 ;Print Output
+000023AE  6100 0516                668                  BSR         OUTCHAR               
+000023B2                           669                  
+000023B2  205F                     670                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000023B4                           671  
+000023B4  4EF8 1F14                672                  JMP         MAIN
+000023B8                           673  
+000023B8                           674  READA0:
+000023B8  2F08                     675                  MOVE.L      A0, -(SP)
+000023BA                           676                  
+000023BA  307C 2C62                677                  MOVEA       #CONTENTS,A0                ;Print Output
+000023BE  6100 0506                678                  BSR         OUTCHAR 
+000023C2                           679                  
+000023C2  205F                     680                  MOVE.L      (SP)+, A0
+000023C4                           681                  
+000023C4  2F08                     682                  MOVE.L      A0, -(SP)
+000023C6                           683                  
+000023C6  23C8 00010300            684                  MOVE.L      A0, $010300
+000023CC                           685                  
+000023CC  10B9 00010300            686                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+000023D2  4EB9 00002900            687                  JSR         OUTHEX
+000023D8                           688  
+000023D8  10B9 00010301            689                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+000023DE  4EB9 00002900            690                  JSR         OUTHEX
+000023E4                           691                  
+000023E4  10B9 00010302            692                  MOVE.B      $10302, (A0)                 ;3rd Byte                              
+000023EA  4EB9 00002900            693                  JSR         OUTHEX
+000023F0                           694                  
+000023F0  10B9 00010303            695                  MOVE.B      $10303, (A0)                  ;1st Byte                              
+000023F6  4EB9 00002900            696                  JSR         OUTHEX
+000023FC                           697                           
+000023FC  205F                     698                  MOVE.L      (SP)+, A0                   ;Pop D0
+000023FE                           699                  
+000023FE  2F08                     700                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002400                           701                
+00002400  307C 2D08                702                  MOVEA       #NEWLINE,A0                 ;Print Output
+00002404  6100 04C0                703                  BSR         OUTCHAR               
+00002408                           704                  
+00002408  205F                     705                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+0000240A                           706                 
+0000240A  4EF8 1F14                707                  JMP         MAIN
+0000240E                           708  
+0000240E                           709  READA1:
+0000240E  2F08                     710                  MOVE.L      A0, -(SP)
+00002410                           711                  
+00002410  307C 2C62                712                  MOVEA       #CONTENTS,A0                ;Print Output
+00002414  6100 04B0                713                  BSR         OUTCHAR 
+00002418                           714                  
+00002418  205F                     715                  MOVE.L      (SP)+, A0
+0000241A                           716                  
+0000241A  2F09                     717                  MOVE.L      A1, -(SP)
+0000241C                           718                  
+0000241C  23C9 00010300            719                  MOVE.L      A1, $010300
+00002422                           720                  
+00002422  10B9 00010300            721                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+00002428  4EB9 00002900            722                  JSR         OUTHEX
+0000242E                           723  
+0000242E  10B9 00010301            724                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+00002434  4EB9 00002900            725                  JSR         OUTHEX
+0000243A                           726                  
+0000243A  10B9 00010302            727                  MOVE.B      $010302, (A0)                 ;3rd Byte                              
+00002440  4EB9 00002900            728                  JSR         OUTHEX
+00002446                           729                  
+00002446  10B9 00010303            730                  MOVE.B      $010303, (A0)                  ;1st Byte                              
+0000244C  4EB9 00002900            731                  JSR         OUTHEX
+00002452                           732                           
+00002452  225F                     733                  MOVE.L      (SP)+, A1                   ;Pop D0
+00002454                           734                  
+00002454  2F08                     735                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002456                           736                
+00002456  307C 2D08                737                  MOVEA       #NEWLINE,A0                 ;Print Output
+0000245A  6100 046A                738                  BSR         OUTCHAR               
+0000245E                           739                  
+0000245E  205F                     740                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002460                           741                                 
+00002460  4EF8 1F14                742                  JMP         MAIN
+00002464                           743  
+00002464                           744  READA2:
+00002464  2F08                     745                  MOVE.L      A0, -(SP)
+00002466                           746                  
+00002466  307C 2C62                747                  MOVEA       #CONTENTS,A0                ;Print Output
+0000246A  6100 045A                748                  BSR         OUTCHAR 
+0000246E                           749                  
+0000246E  205F                     750                  MOVE.L      (SP)+, A0
+00002470                           751                  
+00002470  2F0A                     752                  MOVE.L      A2, -(SP)
+00002472                           753                                  
+00002472  23CA 00010300            754                  MOVE.L      A2, $010300
+00002478                           755                  
+00002478  10B9 00010300            756                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+0000247E  4EB9 00002900            757                  JSR         OUTHEX
+00002484                           758  
+00002484  10B9 00010301            759                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+0000248A  4EB9 00002900            760                  JSR         OUTHEX
+00002490                           761                  
+00002490  10B9 00010302            762                  MOVE.B      $010302, (A0)                 ;3rd Byte                              
+00002496  4EB9 00002900            763                  JSR         OUTHEX
+0000249C                           764                  
+0000249C  10B9 00010303            765                  MOVE.B      $010303, (A0)                  ;1st Byte                              
+000024A2  4EB9 00002900            766                  JSR         OUTHEX
+000024A8                           767                           
+000024A8  245F                     768                  MOVE.L      (SP)+, A2                   ;Pop D0
+000024AA                           769                  
+000024AA  2F08                     770                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000024AC                           771                
+000024AC  307C 2D08                772                  MOVEA       #NEWLINE,A0                 ;Print Output
+000024B0  6100 0414                773                  BSR         OUTCHAR               
+000024B4                           774                  
+000024B4  205F                     775                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000024B6                           776               
+000024B6  4EF8 1F14                777                  JMP         MAIN
+000024BA                           778  
+000024BA                           779  READA3:
+000024BA  2F08                     780                  MOVE.L      A0, -(SP)
+000024BC                           781                  
+000024BC  307C 2C62                782                  MOVEA       #CONTENTS,A0                ;Print Output
+000024C0  6100 0404                783                  BSR         OUTCHAR 
+000024C4                           784                  
+000024C4  205F                     785                  MOVE.L      (SP)+, A0
+000024C6                           786                  
+000024C6  2F0B                     787                  MOVE.L      A3, -(SP)
+000024C8                           788                  
+000024C8  23CB 00010300            789                  MOVE.L      A3, $010300
+000024CE                           790                  
+000024CE  10B9 00010300            791                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+000024D4  4EB9 00002900            792                  JSR         OUTHEX
+000024DA                           793  
+000024DA  10B9 00010301            794                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+000024E0  4EB9 00002900            795                  JSR         OUTHEX
+000024E6                           796                  
+000024E6  10B9 00010302            797                  MOVE.B      $010302, (A0)                 ;3rd Byte                              
+000024EC  4EB9 00002900            798                  JSR         OUTHEX
+000024F2                           799                  
+000024F2  10B9 00010303            800                  MOVE.B      $010303, (A0)                  ;1st Byte                              
+000024F8  4EB9 00002900            801                  JSR         OUTHEX
+000024FE                           802                           
+000024FE  265F                     803                  MOVE.L      (SP)+, A3                   ;Pop D0
+00002500                           804                  
+00002500  2F08                     805                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002502                           806                
+00002502  307C 2D08                807                  MOVEA       #NEWLINE,A0                 ;Print Output
+00002506  6100 03BE                808                  BSR         OUTCHAR               
+0000250A                           809                  
+0000250A  205F                     810                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+0000250C                           811  
+0000250C  4EF8 1F14                812                  JMP         MAIN
+00002510                           813  
+00002510                           814  READA4:
+00002510  2F08                     815                  MOVE.L      A0, -(SP)
+00002512                           816                  
+00002512  307C 2C62                817                  MOVEA       #CONTENTS,A0                ;Print Output
+00002516  6100 03AE                818                  BSR         OUTCHAR 
+0000251A                           819                  
+0000251A  205F                     820                  MOVE.L      (SP)+, A0
+0000251C                           821                  
+0000251C  2F0C                     822                  MOVE.L      A4, -(SP)
+0000251E                           823                  
+0000251E  23CC 00010300            824                  MOVE.L      A4, $010300
+00002524                           825                  
+00002524  10B9 00010300            826                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+0000252A  4EB9 00002900            827                  JSR         OUTHEX
+00002530                           828  
+00002530  10B9 00010301            829                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+00002536  4EB9 00002900            830                  JSR         OUTHEX
+0000253C                           831                  
+0000253C  10B9 00010302            832                  MOVE.B      $010302, (A0)                 ;3rd Byte                              
+00002542  4EB9 00002900            833                  JSR         OUTHEX
+00002548                           834                  
+00002548  10B9 00010303            835                  MOVE.B      $010303, (A0)                  ;1st Byte                              
+0000254E  4EB9 00002900            836                  JSR         OUTHEX
+00002554                           837                           
+00002554  285F                     838                  MOVE.L      (SP)+, A4                   ;Pop D0
+00002556                           839                  
+00002556  2F08                     840                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002558                           841                
+00002558  307C 2D08                842                  MOVEA       #NEWLINE,A0                 ;Print Output
+0000255C  6100 0368                843                  BSR         OUTCHAR               
+00002560                           844                  
+00002560  205F                     845                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002562                           846  
+00002562  4EF8 1F14                847                  JMP         MAIN
+00002566                           848  
+00002566                           849  READA5:
+00002566  2F08                     850                  MOVE.L      A0, -(SP)
+00002568                           851                  
+00002568  307C 2C62                852                  MOVEA       #CONTENTS,A0                ;Print Output
+0000256C  6100 0358                853                  BSR         OUTCHAR 
+00002570                           854                  
+00002570  205F                     855                  MOVE.L      (SP)+, A0
+00002572                           856                  
+00002572  2F0D                     857                  MOVE.L      A5, -(SP)
+00002574                           858                  
+00002574  23CD 00010300            859                  MOVE.L      A5, $010300
+0000257A                           860                  
+0000257A  10B9 00010300            861                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+00002580  4EB9 00002900            862                  JSR         OUTHEX
+00002586                           863  
+00002586  10B9 00010301            864                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+0000258C  4EB9 00002900            865                  JSR         OUTHEX
+00002592                           866                  
+00002592  10B9 00010302            867                  MOVE.B      $010302, (A0)                 ;3rd Byte                              
+00002598  4EB9 00002900            868                  JSR         OUTHEX
+0000259E                           869                  
+0000259E  10B9 00010303            870                  MOVE.B      $010303, (A0)                  ;1st Byte                              
+000025A4  4EB9 00002900            871                  JSR         OUTHEX
+000025AA                           872                           
+000025AA  2A5F                     873                  MOVE.L      (SP)+, A5                   ;Pop D0
+000025AC                           874                  
+000025AC  2F08                     875                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+000025AE                           876                
+000025AE  307C 2D08                877                  MOVEA       #NEWLINE,A0                 ;Print Output
+000025B2  6100 0312                878                  BSR         OUTCHAR               
+000025B6                           879                  
+000025B6  205F                     880                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+000025B8                           881  
+000025B8  4EF8 1F14                882                  JMP         MAIN
+000025BC                           883  
+000025BC                           884  READA6:
+000025BC  2F08                     885                  MOVE.L      A0, -(SP)
+000025BE                           886                  
+000025BE  307C 2C62                887                  MOVEA       #CONTENTS,A0                ;Print Output
+000025C2  6100 0302                888                  BSR         OUTCHAR 
+000025C6                           889                  
+000025C6  205F                     890                  MOVE.L      (SP)+, A0
+000025C8                           891                  
+000025C8  2F0E                     892                  MOVE.L      A6, -(SP)
+000025CA                           893                  
+000025CA  23CE 00010300            894                  MOVE.L      A6, $010300
+000025D0                           895                  
+000025D0  10B9 00010300            896                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+000025D6  4EB9 00002900            897                  JSR         OUTHEX
+000025DC                           898  
+000025DC  10B9 00010301            899                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+000025E2  4EB9 00002900            900                  JSR         OUTHEX
+000025E8                           901                  
+000025E8  10B9 00010302            902                  MOVE.B      $010302, (A0)                 ;3rd Byte                              
+000025EE  4EB9 00002900            903                  JSR         OUTHEX
+000025F4                           904                  
+000025F4  10B9 00010303            905                  MOVE.B      $010303, (A0)                  ;1st Byte                              
+000025FA  4EB9 00002900            906                  JSR         OUTHEX
+00002600                           907                           
+00002600  2C5F                     908                  MOVE.L      (SP)+, A6                   ;Pop D0
+00002602                           909                  
+00002602  2F08                     910                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+00002604                           911                
+00002604  307C 2D08                912                  MOVEA       #NEWLINE,A0                 ;Print Output
+00002608  6100 02BC                913                  BSR         OUTCHAR               
+0000260C                           914                  
+0000260C  205F                     915                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+0000260E                           916   
+0000260E  4EF8 1F14                917                  JMP         MAIN
+00002612                           918  
+00002612                           919  READA7:
+00002612  2F08                     920                  MOVE.L      A0, -(SP)
+00002614                           921                  
+00002614  307C 2C62                922                  MOVEA       #CONTENTS,A0                ;Print Output
+00002618  6100 02AC                923                  BSR         OUTCHAR 
+0000261C                           924                  
+0000261C  205F                     925                  MOVE.L      (SP)+, A0
+0000261E                           926                  
+0000261E  2F0F                     927                  MOVE.L      A7, -(SP)
+00002620                           928                  
+00002620  23CF 00010300            929                  MOVE.L      A7, $010300
+00002626                           930                  
+00002626  10B9 00010300            931                  MOVE.B      $010300, (A0)                 ;1st Byte                              
+0000262C  4EB9 00002900            932                  JSR         OUTHEX
+00002632                           933  
+00002632  10B9 00010301            934                  MOVE.B      $010301, (A0)                 ;2nd Byte                              
+00002638  4EB9 00002900            935                  JSR         OUTHEX
+0000263E                           936                  
+0000263E  10B9 00010302            937                  MOVE.B      $010302, (A0)                 ;3rd Byte                              
+00002644  4EB9 00002900            938                  JSR         OUTHEX
+0000264A                           939                  
+0000264A  10B9 00010303            940                  MOVE.B      $010303, (A0)                  ;1st Byte                              
+00002650  4EB9 00002900            941                  JSR         OUTHEX
+00002656                           942                           
+00002656  2E5F                     943                  MOVE.L      (SP)+, A7                   ;Pop D0
+00002658                           944                  
+00002658  2F08                     945                  MOVE.L      A0, -(SP)                   ;Pushing A0 to the Stack               
+0000265A                           946                
+0000265A  307C 2D08                947                  MOVEA       #NEWLINE,A0                 ;Print Output
+0000265E  6100 0266                948                  BSR         OUTCHAR               
+00002662                           949                  
+00002662  205F                     950                  MOVE.L      (SP)+, A0                   ;Popping A0 to the Stack
+00002664                           951  
+00002664  4EF8 1F14                952                  JMP         MAIN
+00002668                           953                             
+00002668                           954  
+00002668                           955  *======================================================================
+00002668                           956  *Write to Register Sub-function
+00002668                           957  WR:
+00002668  4EB8 1FA0                958                  JSR         GET_ARG
+0000266C                           959                  
+0000266C  45F9 00016000            960                  LEA         INPUT, A2
+00002672                           961                  
+00002672  2487                     962                  MOVE.L      D7, (A2)
+00002674  5248                     963                  ADD         #$01, A0
+00002676                           964  
+00002676                           965  WR_LOOP:                
+00002676  0C10 0041                966                  CMPI.B      #$41, (A0)
+0000267A  6700 000E                967                  BEQ         WR_A
+0000267E  0C10 0044                968                  CMPI.B      #$44, (A0)
+00002682  6700 0098                969                  BEQ         WR_D
+00002686  6000 02CE                970                  BRA         ARGUMENT_ERROR
+0000268A                           971  
+0000268A                           972  *=======================================
+0000268A                           973  *Address Register                
+0000268A                           974  WR_A:
+0000268A                           975                  *Condition Checking                
+0000268A  5248                     976                  ADD         #$01, A0
+0000268C  0C10 0030                977                  CMPI.B      #$30, (A0)
+00002690  6D00 02C4                978                  BLT         ARGUMENT_ERROR
+00002694  0C10 0037                979                  CMPI.B      #$37, (A0)
+00002698  6E00 02BC                980                  BGT         ARGUMENT_ERROR
+0000269C                           981                  
+0000269C                           982                  *Address Register Checking
+0000269C  0C10 0030                983                  CMPI.B      #$30, (A0)
+000026A0  6700 003A                984                  BEQ         WR_ADDR0                
+000026A4  0C10 0031                985                  CMPI.B      #$31, (A0)
+000026A8  6700 003A                986                  BEQ         WR_ADDR1                
+000026AC  0C10 0032                987                  CMPI.B      #$32, (A0)
+000026B0  6700 003A                988                  BEQ         WR_ADDR2               
+000026B4  0C10 0033                989                  CMPI.B      #$33, (A0)
+000026B8  6700 003A                990                  BEQ         WR_ADDR3                
+000026BC  0C10 0034                991                  CMPI.B      #$34, (A0)
+000026C0  6700 003A                992                  BEQ         WR_ADDR4                
+000026C4  0C10 0035                993                  CMPI.B      #$35, (A0)
+000026C8  6700 003A                994                  BEQ         WR_ADDR5                
+000026CC  0C10 0036                995                  CMPI.B      #$36, (A0)
+000026D0  6700 003A                996                  BEQ         WR_ADDR6                
+000026D4  0C10 0037                997                  CMPI.B      #$37, (A0)
+000026D8  6700 003A                998                  BEQ         WR_ADDR7                
+000026DC                           999  
+000026DC                          1000  *Write to Addresss                
+000026DC                          1001  WR_ADDR0:
+000026DC  2047                    1002                  MOVE.L      D7, A0
+000026DE  4EF9 000027AE           1003                  JMP         WR_EXIT               
+000026E4                          1004  WR_ADDR1:
+000026E4  2247                    1005                  MOVE.L      D7, A1
+000026E6  4EF9 000027AE           1006                  JMP         WR_EXIT
+000026EC                          1007  WR_ADDR2:
+000026EC  2447                    1008                  MOVE.L      D7, A2
+000026EE  4EF9 000027AE           1009                  JMP         WR_EXIT
+000026F4                          1010  WR_ADDR3:
+000026F4  2647                    1011                  MOVE.L      D7, A3
+000026F6  4EF9 000027AE           1012                  JMP         WR_EXIT
+000026FC                          1013  WR_ADDR4:
+000026FC  2847                    1014                  MOVE.L      D7, A4
+000026FE  4EF9 000027AE           1015                  JMP         WR_EXIT
+00002704                          1016  WR_ADDR5:
+00002704  2A47                    1017                  MOVE.L      D7, A5
+00002706  4EF9 000027AE           1018                  JMP         WR_EXIT
+0000270C                          1019  WR_ADDR6:
+0000270C  2C47                    1020                  MOVE.L      D7, A6
+0000270E  4EF9 000027AE           1021                  JMP         WR_EXIT
+00002714                          1022  WR_ADDR7:
+00002714  2E47                    1023                  MOVE.L      D7, A7
+00002716  4EF9 000027AE           1024                  JMP         WR_EXIT                
+0000271C                          1025  *=======================================
+0000271C                          1026  *Data Register
+0000271C                          1027  WR_D:
+0000271C                          1028                  *Condition Checking
+0000271C  5248                    1029                  ADD         #$01, A0
+0000271E  0C10 0030               1030                  CMPI.B      #$30, (A0)
+00002722  6D00 0232               1031                  BLT         ARGUMENT_ERROR
+00002726  0C10 0037               1032                  CMPI.B      #$37, (A0)
+0000272A  6E00 022A               1033                  BGT         ARGUMENT_ERROR
+0000272E                          1034                                  
+0000272E                          1035                  *Data Register Checking
+0000272E  0C10 0030               1036                  CMPI.B      #$30, (A0)
+00002732  6700 003A               1037                  BEQ         WR_DATA0               
+00002736  0C10 0031               1038                  CMPI.B      #$31, (A0)
+0000273A  6700 003A               1039                  BEQ         WR_DATA1                
+0000273E  0C10 0032               1040                  CMPI.B      #$32, (A0)
+00002742  6700 003A               1041                  BEQ         WR_DATA2                
+00002746  0C10 0033               1042                  CMPI.B      #$33, (A0)
+0000274A  6700 003A               1043                  BEQ         WR_DATA3
+0000274E  0C10 0034               1044                  CMPI.B      #$34, (A0)
+00002752  6700 003A               1045                  BEQ         WR_DATA4                
+00002756  0C10 0035               1046                  CMPI.B      #$35, (A0)
+0000275A  6700 003A               1047                  BEQ         WR_DATA5               
+0000275E  0C10 0036               1048                  CMPI.B      #$36, (A0)
+00002762  6700 003A               1049                  BEQ         WR_DATA6                
+00002766  0C10 0037               1050                  CMPI.B      #$37, (A0)
+0000276A  6700 003A               1051                  BEQ         WR_DATA7
+0000276E                          1052  
+0000276E                          1053  *Write to Data                 
+0000276E                          1054  WR_DATA0:
+0000276E  2007                    1055                  MOVE.L      D7, D0                                
+00002770  4EF9 000027AE           1056                  JMP         WR_EXIT
+00002776                          1057  WR_DATA1:                
+00002776  2207                    1058                  MOVE.L      D7, D1
+00002778  4EF9 000027AE           1059                  JMP         WR_EXIT
+0000277E                          1060  WR_DATA2:                
+0000277E  2407                    1061                  MOVE.L      D7, D2
+00002780  4EF9 000027AE           1062                  JMP         WR_EXIT
+00002786                          1063  WR_DATA3:                
+00002786  2607                    1064                  MOVE.L      D7, D3
+00002788  4EF9 000027AE           1065                  JMP         WR_EXIT
+0000278E                          1066  WR_DATA4:                
+0000278E  2807                    1067                  MOVE.L      D7, D4
+00002790  4EF9 000027AE           1068                  JMP         WR_EXIT
+00002796                          1069  WR_DATA5:                
+00002796  2A07                    1070                  MOVE.L      D7, D5
+00002798  4EF9 000027AE           1071                  JMP         WR_EXIT
+0000279E                          1072  WR_DATA6:                
+0000279E  2C07                    1073                  MOVE.L      D7, D6
+000027A0  4EF9 000027AE           1074                  JMP         WR_EXIT
+000027A6                          1075  WR_DATA7:                
+000027A6  2E07                    1076                  MOVE.L      D7, D7
+000027A8  4EF9 000027AE           1077                  JMP         WR_EXIT                
+000027AE                          1078                  
+000027AE                          1079  WR_EXIT:
+000027AE  2F08                    1080                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+000027B0                          1081                
+000027B0  307C 2C6D               1082                  MOVEA       #OUTPUT_WM ,A0                      ;Print Output
+000027B4  6100 0110               1083                  BSR         OUTCHAR
+000027B8                          1084  
+000027B8  307C 2D08               1085                  MOVEA       #NEWLINE,A0                         ;Print New Line
+000027BC  6100 0108               1086                  BSR         OUTCHAR               
+000027C0                          1087                  
+000027C0  205F                    1088                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+000027C2                          1089                  
+000027C2  4EF8 1F14               1090                  JMP         MAIN
+000027C6                          1091  
+000027C6                          1092      
+000027C6                          1093  *======================================================================
+000027C6                          1094  *Load S-Record Sub-function
+000027C6                          1095  LS:
+000027C6                          1096                  *Condition Check and Setup
+000027C6  5248                    1097                  ADD         #$01, A0
+000027C8  43F9 00015000           1098                  LEA         SRECADDR, A1
+000027CE  45F9 00015500           1099                  LEA         SRECSTART, A2
+000027D4                          1100                  
+000027D4  7400                    1101                  MOVEQ       #$00, D2                            ;D2 is Count Byte
+000027D6  7600                    1102                  MOVEQ       #$00, D3
+000027D8  7E00                    1103                  MOVEQ       #$00, D7                            ;D7 is address
+000027DA  7C00                    1104                  MOVEQ       #$00, D6
+000027DC                          1105                 
+000027DC                          1106                  
+000027DC  0C10 0053               1107                  CMPI.B      #$53, (A0)                          ;Compare to "S"
+000027E0  6700 0006               1108                  BEQ         SVALID             
+000027E4  6000 0170               1109                  BRA         ARGUMENT_ERROR               
+000027E8                          1110  
+000027E8                          1111  SVALID:
+000027E8  5248                    1112                  ADD         #$01, A0                            ;Checking the next bytes of A0
+000027EA  0C10 0030               1113                  CMPI.B      #$30, (A0)
+000027EE  6D00 0166               1114                  BLT         ARGUMENT_ERROR
+000027F2  0C10 0039               1115                  CMPI.B      #$39, (A0)
+000027F6  6E00 015E               1116                  BGT         ARGUMENT_ERROR
+000027FA                          1117                  
+000027FA  0C10 0031               1118                  CMPI.B      #$31, (A0)
+000027FE  6700 0006               1119                  BEQ         SCOUNT
+00002802  6000 0044               1120                  BRA         SRECLIM
+00002806                          1121                  
+00002806                          1122  SCOUNT:                
+00002806  4EB9 0000286A           1123                  JSR         READBYTES 
+0000280C  2407                    1124                  MOVE.L      D7, D2                              ;Move S-Record Count to D2
+0000280E                          1125                                                                  
+0000280E                          1126  SADDR:
+0000280E  4EB9 0000286A           1127                  JSR         READBYTES
+00002814  12C7                    1128                  MOVE.B      D7, (A1)+
+00002816                          1129                  
+00002816  4EB9 0000286A           1130                  JSR         READBYTES
+0000281C  12C7                    1131                  MOVE.B      D7, (A1)+
+0000281E                          1132                  
+0000281E  5502                    1133                  SUB.B       #$02, D2
+00002820                          1134                      
+00002820                          1135  SDATA:                
+00002820  4EB9 0000286A           1136                  JSR         READBYTES
+00002826  14C7                    1137                  MOVE.B      D7, (A2)+
+00002828  5302                    1138                  SUB.B       #$01, D2
+0000282A  0C02 0001               1139                  CMPI.B      #$01, D2
+0000282E  66F0                    1140                  BNE         SDATA
+00002830                          1141                                       
+00002830                          1142  LS_EXIT:
+00002830  2F08                    1143                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00002832                          1144                
+00002832  307C 2C80               1145                  MOVEA       #OUTPUT_LS ,A0                      ;Print Output
+00002836  6100 008E               1146                  BSR         OUTCHAR
+0000283A                          1147  
+0000283A  307C 2D08               1148                  MOVEA       #NEWLINE,A0                         ;Print New Line
+0000283E  6100 0086               1149                  BSR         OUTCHAR               
+00002842                          1150                  
+00002842  205F                    1151                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack                
+00002844                          1152                  
+00002844  4EF8 1F14               1153                  JMP         MAIN
+00002848                          1154  
+00002848                          1155  SRECLIM:
+00002848  2F08                    1156                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+0000284A                          1157                  
+0000284A  307C 2C9B               1158                  MOVEA       #SRECLIM_MSG,A0
+0000284E  6100 0076               1159                  BSR         OUTCHAR
+00002852                          1160  
+00002852  307C 2D08               1161                  MOVEA       #NEWLINE,A0                         ;Print New Line
+00002856  6100 006E               1162                  BSR         OUTCHAR                
+0000285A                          1163                  
+0000285A  205F                    1164                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+0000285C                          1165  
+0000285C  4EF8 1F14               1166                  JMP         MAIN
+00002860                          1167  
+00002860                          1168  
+00002860                          1169  *======================================================================
+00002860                          1170  *Run S-Record Sub-function
+00002860                          1171  RS:
+00002860  4EB9 00015500           1172                  JSR         SRECSTART
+00002866                          1173                  
+00002866  4EF8 1F14               1174                  JMP         MAIN        
+0000286A                          1175  
+0000286A                          1176  *======================================================================
+0000286A                          1177  *Read Hex Byte
+0000286A                          1178  READBYTES:
+0000286A  7E00                    1179                  MOVEQ       #$00, D7                            ;D7 is address
+0000286C  7C00                    1180                  MOVEQ       #$00, D6
+0000286E  7800                    1181                  MOVEQ       #$00, D4
+00002870                          1182  
+00002870                          1183  READBYTES_LOOP:                
+00002870  5248                    1184                  ADD         #$01, A0
+00002872                          1185  
+00002872  1C10                    1186                  MOVE.B      (A0), D6
+00002874  0C06 0039               1187                  CMPI.B      #$39, D6
+00002878  6F00 0004               1188                  BLE         READ_NUMBYTES
+0000287C  5F06                    1189                  SUBQ.B      #$07, D6
+0000287E                          1190  
+0000287E                          1191  READ_NUMBYTES:
+0000287E  0406 0030               1192                  SUB.B       #$30, D6
+00002882  E99F                    1193                  ROL.L       #4, D7
+00002884  DE86                    1194                  ADD.L       D6, D7
+00002886                          1195                  
+00002886                          1196                                                                 
+00002886  5244                    1197                  ADDI        #$01, D4
+00002888  0C04 0002               1198                  CMPI.B      #$02, D4
+0000288C  6700 0004               1199                  BEQ         GOT_BYTES
+00002890  60DE                    1200                  BRA         READBYTES_LOOP        
+00002892                          1201  
+00002892                          1202  GOT_BYTES:
+00002892  4E75                    1203                  RTS
+00002894                          1204  
+00002894                          1205                   
+00002894                          1206  *======================================================================
+00002894                          1207  *Input character
+00002894                          1208  INCHAR:
+00002894  2F01                    1209                  MOVE.L      D1, -(SP)
+00002896  2F00                    1210                  MOVE.L      D0, -(SP)
+00002898                          1211  
+00002898                          1212  INCHAR_LOOP:                                               
+00002898  103C 0005               1213                  MOVE.B      #5, D0
+0000289C  4E4F                    1214                  TRAP        #15
+0000289E                          1215                  
+0000289E  0C01 000D               1216                  CMPI.B      #CR, D1                               ;If input equals to Carriage Return
+000028A2  6716                    1217                  BEQ.S       END_INCHAR_LOOP                       ;Exit getting input from Character
+000028A4                          1218                  
+000028A4  0C01 0008               1219                  CMPI.B      #BS, D1                               ;If input equals to backspace
+000028A8  670A                    1220                  BEQ.S       INCHAR_BS                             ;Delete
+000028AA                          1221                                                                                  
+000028AA  10C1                    1222                  MOVE.B      D1, (A0)+                             ;Move Input Byte Value of D1 to A0 then
+000028AC                          1223                                                                    ;increment the address
+000028AC  60EA                    1224                  BRA         INCHAR_LOOP    
+000028AE                          1225  
+000028AE                          1226  INCHAR_SPACE:
+000028AE  113C 0000               1227                  MOVE.B      #0, -(A0)
+000028B2  60E4                    1228                  BRA         INCHAR_LOOP
+000028B4                          1229  
+000028B4                          1230  INCHAR_BS:
+000028B4  113C 0000               1231                  MOVE.B      #0, -(A0)
+000028B8  60DE                    1232                  BRA         INCHAR_LOOP        
+000028BA                          1233  
+000028BA                          1234  END_INCHAR_LOOP:
+000028BA  207C 00010000           1235                  MOVE.L      #$010000, A0
+000028C0  201F                    1236                  MOVE.L      (SP)+, D0
+000028C2  221F                    1237                  MOVE.L      (SP)+, D1
+000028C4  4E75                    1238                  RTS
+000028C6                          1239                      
+000028C6                          1240  *Output Character
+000028C6                          1241  OUTCHAR:
+000028C6  2F01                    1242                  MOVE.L      D1, -(SP)
+000028C8  2F00                    1243                  MOVE.L      D0, -(SP)
+000028CA                          1244                       
+000028CA                          1245  OUTCHAR_LOOP:                
+000028CA  1218                    1246                  MOVE.B      (A0)+, D1
+000028CC  0C01 0000               1247                  CMPI.B      #0, D1
+000028D0  6708                    1248                  BEQ.S       END_OUTCHAR_LOOP                                
+000028D2  103C 0006               1249                  MOVE.B      #6, D0
+000028D6  4E4F                    1250                  TRAP        #15
+000028D8  60F0                    1251                  BRA         OUTCHAR_LOOP
+000028DA                          1252                                   
+000028DA                          1253  END_OUTCHAR_LOOP:
+000028DA  201F                    1254                  MOVE.L      (SP)+, D0
+000028DC  221F                    1255                  MOVE.L      (SP)+, D1
+000028DE  4E75                    1256                  RTS
+000028E0                          1257                  
+000028E0                          1258  *======================================================================                
+000028E0                          1259  *Output Address:
+000028E0                          1260  OUTADDR:
+000028E0  2F01                    1261                  MOVE.L      D1, -(SP)
+000028E2  2F00                    1262                  MOVE.L      D0, -(SP)
+000028E4  49F9 00016500           1263                  LEA         OUTPUT, A4
+000028EA                          1264                       
+000028EA                          1265  OUTADDR_LOOP:                
+000028EA  121C                    1266                  MOVE.B      (A4)+, D1
+000028EC  0C01 0020               1267                  CMPI.B      #SPACE, D1
+000028F0  67E8                    1268                  BEQ.S       END_OUTCHAR_LOOP                                
+000028F2  103C 0006               1269                  MOVE.B      #6, D0
+000028F6  4E4F                    1270                  TRAP        #15                                
+000028F8  60F0                    1271                  BRA         OUTADDR_LOOP
+000028FA                          1272                                   
+000028FA                          1273  END_OUTADDR_LOOP:
+000028FA  201F                    1274                  MOVE.L      (SP)+, D0
+000028FC  221F                    1275                  MOVE.L      (SP)+, D1
+000028FE  4E75                    1276                  RTS     
+00002900                          1277  
+00002900                          1278  *======================================================================                 
+00002900                          1279  *Print Hex Byte
+00002900                          1280  OUTHEX:
+00002900  7800                    1281                  MOVEQ       #$00, D4               
+00002902  7A00                    1282                  MOVEQ       #$00, D5
+00002904                          1283                  
+00002904  1810                    1284                  MOVE.B      (A0), D4              
+00002906  E80C                    1285                  LSR.B       #$04, D4                ;D4 = Lower Bit
+00002908                          1286                  
+00002908  0604 0030               1287                  ADD.B       #$30, D4
+0000290C  B83C 0039               1288                  CMP.B       #$39, D4
+00002910                          1289                  
+00002910  6F0A                    1290                  BLE.S       OUTHEX_BYTE2
+00002912  5E04                    1291                  ADD.B       #7, D4
+00002914  B83C 0046               1292                  CMP.B       #$46, D4
+00002918  6E00 002C               1293                  BGT         ERROR 
+0000291C                          1294                  
+0000291C                          1295  OUTHEX_BYTE2:
+0000291C  1A10                    1296                  MOVE.B      (A0), D5
+0000291E  E90D                    1297                  LSL.B       #$04, D5                ;D5 = Higher Bits
+00002920  E91D                    1298                  ROL.B       #$04, D5
+00002922                          1299                  
+00002922  0605 0030               1300                  ADD.B       #$30, D5
+00002926  BA3C 0039               1301                  CMP.B       #$39, D5
+0000292A  6F0A                    1302                  BLE.S       OUTHEX_NEXT
+0000292C  5E05                    1303                  ADD.B       #7, D5
+0000292E  BA3C 0046               1304                  CMP.B       #$46, D5
+00002932  6E00 0012               1305                  BGT         ERROR
+00002936                          1306  
+00002936                          1307  OUTHEX_NEXT:                
+00002936  49F9 00016500           1308                  LEA         OUTPUT, A4                 
+0000293C  18C4                    1309                  MOVE.B      D4, (A4)+
+0000293E  1885                    1310                  MOVE.B      D5, (A4)
+00002940  4EB8 28E0               1311                  JSR         OUTADDR                
+00002944                          1312                                                                 
+00002944                          1313  END_OUTHEX:
+00002944  4E75                    1314                  RTS
+00002946                          1315                                               
+00002946                          1316  *======================================================================
+00002946                          1317  *Error Code
+00002946                          1318  ERROR:
+00002946  2F08                    1319                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00002948                          1320                  
+00002948  307C 2CB4               1321                  MOVEA       #ERROR_MSG,A0
+0000294C  6100 FF78               1322                  BSR         OUTCHAR               
+00002950                          1323                  
+00002950  205F                    1324                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+00002952                          1325  
+00002952  4EF8 1F14               1326                  JMP         MAIN
+00002956                          1327                  
+00002956                          1328  *Error Code
+00002956                          1329  ARGUMENT_ERROR:
+00002956  2F08                    1330                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00002958                          1331                  
+00002958  307C 2CC2               1332                  MOVEA       #ARG_ERR_MSG,A0
+0000295C  6100 FF68               1333                  BSR         OUTCHAR               
+00002960                          1334                  
+00002960  205F                    1335                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+00002962                          1336  
+00002962  4EF8 1F14               1337                  JMP         MAIN
+00002966                          1338                  
+00002966                          1339  MEMORY_ERROR:
+00002966  2F08                    1340                  MOVE.L      A0, -(SP)                           ;Pushing A0 to the Stack               
+00002968                          1341                  
+00002968  307C 2CF8               1342                  MOVEA       #MEM_ERR_MSG,A0
+0000296C  6100 FF58               1343                  BSR         OUTCHAR               
+00002970                          1344                  
+00002970  205F                    1345                  MOVE.L      (SP)+, A0                           ;Popping A0 to the Stack
+00002972                          1346  
+00002972  4EF8 1F14               1347                  JMP         MAIN
+00002976                          1348            
+00002976                          1349  *=======================================================================        
+00002976                          1350  *String Variables
+00002976                          1351  MONITOR:
+00002976= 36 38 30 30 30 20 ...   1352                  DC.B            '68000 Microcontroller Monitor Program [Version 1.0]', CR, LF
+000029AB= 42 75 69 6C 74 20 ...   1353                  DC.B            'Built Date: 4.13.2022', CR, LF
+000029C2= 44 65 76 65 6C 6F ...   1354                  DC.B            'Developer: Duc Anh Nguyen',0
+000029DC                          1355                  
+000029DC                          1356  MENU_LIST:           
+000029DC= 20 20 4D 45 4D 4F ...   1357                  DC.B            '  MEMORY MAP '           , CR, LF
+000029EB= 7C 7C 20 20 30 30 ...   1358                  DC.B            '||  00000  ||'         , CR,LF
+000029FA= 7C 7C 20 20 20 2E ...   1359                  DC.B            '||   ...   || ROM'     , CR,LF
+00002A0D= 7C 7C 20 20 30 46 ...   1360                  DC.B            '||  0FFFF  ||'         , CR,LF
+00002A1C= 7C 7C 20 20 31 30 ...   1361                  DC.B            '||  10000  ||'         , CR,LF
+00002A2B= 7C 7C 20 20 20 2E ...   1362                  DC.B            '||   ...   || RAM '    , CR,LF
+00002A3F= 7C 7C 20 20 31 46 ...   1363                  DC.B            '||  1FFFF  ||'         , CR,LF
+00002A4E= 7C 7C 20 20 32 30 ...   1364                  DC.B            '||  20000  ||'         , CR,LF
+00002A5D= 7C 7C 20 20 20 2E ...   1365                  DC.B            '||   ...   || DUART'   , CR,LF
+00002A72= 7C 7C 20 20 32 30 ...   1366                  DC.B            '||  2000F  ||'         , CR,LF, 0                 
+00002A82                          1367               
+00002A82                          1368  
+00002A82                          1369  COMMAND_LIST:
+00002A82= 6D 61 70 20 00          1370                  DC.B            'map ', 0
+00002A87= 68 65 6C 70 20 00       1371                  DC.B            'help ', 0
+00002A8D= 72 6D 20 00             1372                  DC.B            'rm ', 0
+00002A91= 77 6D 20 00             1373                  DC.B            'wm ', 0
+00002A95= 72 72 20 00             1374                  DC.B            'rr ', 0
+00002A99= 77 72 20 00             1375                  DC.B            'wr ', 0
+00002A9D= 6C 73 20 00             1376                  DC.B            'ls ', 0
+00002AA1= 72 73 20 00             1377                  DC.B            'rs ', 0
+00002AA5                          1378                
+00002AA5                          1379  *Help Display
+00002AA5                          1380  MENU_HELP:
+00002AA5= 6D 61 70 3A 20 64 ...   1381                  DC.B            'map: display the memory map of the program ', CR, LF
+00002AD2= 68 65 6C 70 3A 20 ...   1382                  DC.B            'help: display instructions for commands ', CR, LF
+00002AFC= 65 78 69 74 3A 20 ...   1383                  DC.B            'exit: terminate the monitor program ', CR, LF 
+00002B22= 0D 0A                   1384                  DC.B             CR,LF                              
+00002B24                          1385                  
+00002B24= 72 6D 3A 20 72 65 ...   1386                  DC.B            'rm: read from memory ', CR, LF
+00002B3B= 65 2E 67 2E 20 72 ...   1387                  DC.B            'e.g. rm $<ADDR> ', CR, LF
+00002B4D= 0D 0A                   1388                  DC.B             CR,LF 
+00002B4F                          1389                  
+00002B4F= 77 6D 3A 20 77 72 ...   1390                  DC.B            'wm: write to memory ', CR, LF
+00002B65= 65 2E 67 2E 20 77 ...   1391                  DC.B            'e.g. wm $<CONTENT> $<LOCATION> ', CR, LF
+00002B86= 0D 0A                   1392                  DC.B             CR,LF 
+00002B88                          1393                  
+00002B88= 72 72 3A 20 72 65 ...   1394                  DC.B            'rr: read from register ', CR, LF
+00002BA1= 65 2E 67 2E 20 72 ...   1395                  DC.B            'e.g. rr <REGISTER> ', CR, LF
+00002BB6= 0D 0A                   1396                  DC.B             CR,LF 
+00002BB8                          1397                  
+00002BB8= 77 72 3A 20 77 72 ...   1398                  DC.B            'wr: write to register. NOTE: A0, A5, A6, and A7 are preserved', CR, LF
+00002BF7= 65 2E 67 2E 20 77 ...   1399                  DC.B            'e.g. wr $<CONTENT> <REGISTER> ', CR, LF
+00002C17= 0D 0A                   1400                  DC.B             CR,LF 
+00002C19                          1401                  
+00002C19= 6C 73 3A 20 6C 6F ...   1402                  DC.B            'ls: load S-Record ', CR, LF
+00002C2D= 65 2E 67 2E 20 6C ...   1403                  DC.B            'e.g. ls <S-RECORD>', CR, LF
+00002C41= 0D 0A                   1404                  DC.B             CR,LF 
+00002C43                          1405                  
+00002C43= 72 73 3A 20 72 75 ...   1406                  DC.B            'rs: run S-Record ', CR, LF 
+00002C56= 65 2E 67 2E 20 72 ...   1407                  DC.B            'e.g. rs', CR, LF,0
+00002C60                          1408  
+00002C60                          1409  *Prompt
+00002C60                          1410  PROMPT:
+00002C60= 3E 00                   1411                  DC.B            '>', 0
+00002C62                          1412                
+00002C62                          1413  CONTENTS:
+00002C62= 43 6F 6E 74 65 6E ...   1414                  DC.B            'Contents: ', 0
+00002C6D                          1415  
+00002C6D                          1416  OUTPUT_WM:
+00002C6D= 57 72 69 74 65 20 ...   1417                  DC.B            'Write Successfully', 0
+00002C80                          1418                  
+00002C80                          1419  OUTPUT_LS:
+00002C80= 4C 6F 61 64 20 53 ...   1420                  DC.B            'Load S-Record Successfully', 0
+00002C9B                          1421  SRECLIM_MSG:
+00002C9B= 53 2D 52 65 63 6F ...   1422                  DC.B            'S-Record only accepts S1', 0
+00002CB4                          1423  
+00002CB4                          1424  
+00002CB4                          1425  *Error Messgae
+00002CB4                          1426  ERROR_MSG:
+00002CB4= 57 72 6F 6E 67 20 ...   1427                  DC.B            'Wrong Input', CR, LF, 0
+00002CC2                          1428  
+00002CC2                          1429  ARG_ERR_MSG:
+00002CC2= 41 72 67 75 6D 65 ...   1430                  DC.B            'Argument were incorrect, type <help> for formatting', CR,LF, 0
+00002CF8                          1431  
+00002CF8                          1432  MEM_ERR_MSG:
+00002CF8= 4D 65 6D 6F 72 79 ...   1433                  DC.B            'Memory Damage', CR, LF, 0                 
+00002D08                          1434  
+00002D08                          1435  *New Line
+00002D08                          1436  NEWLINE:        
+00002D08= 0D 0A 00                1437                  DC.B            CR,LF,0
+00002D0B                          1438  
+00002D0B                          1439  *End Program
+00002D0B                          1440  *=======================================================================
+00002D0B                          1441                  END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ADD_ARG             1FAE
+ARGUMENT_ERROR      2956
+ARG_ERR_MSG         2CC2
+BS                  8
+COMMAND_ADDRESS     8
+COMMAND_LIST        2A82
+CONTENTS            2C62
+CR                  D
+CTRL_C              3
+END                 1FE0
+END_INCHAR_LOOP     28BA
+END_OUTADDR_LOOP    28FA
+END_OUTCHAR_LOOP    28DA
+END_OUTHEX          2944
+ERROR               2946
+ERROR_MSG           2CB4
+ESC                 1B
+EXIT                2004
+FIND_NEXT           1F8C
+GET_ARG             1FA0
+GOT_ARG             1FDE
+GOT_BYTES           2892
+HELP                1FF4
+INCHAR              2894
+INCHAR_BS           28B4
+INCHAR_LOOP         2898
+INCHAR_SPACE        28AE
+INPUT               16000
+INPUT_HANDLER       1F6A
+LF                  A
+LOOP                1F6A
+LS                  27C6
+LS_EXIT             2830
+MAIN                1F14
+MEMORY_ERROR        2966
+MEM_ERR_MSG         2CF8
+MENU                1FE4
+MENU_HELP           2AA5
+MENU_LIST           29DC
+MONITOR             2976
+NEWLINE             2D08
+NUM                 1FC0
+OUTADDR             28E0
+OUTADDR_LOOP        28EA
+OUTCHAR             28C6
+OUTCHAR_LOOP        28CA
+OUTHEX              2900
+OUTHEX_BYTE2        291C
+OUTHEX_NEXT         2936
+OUTPUT              16500
+OUTPUT_LS           2C80
+OUTPUT_WM           2C6D
+POP                 1F86
+PROMPT              2C60
+READA0              23B8
+READA1              240E
+READA2              2464
+READA3              24BA
+READA4              2510
+READA5              2566
+READA6              25BC
+READA7              2612
+READBYTES           286A
+READBYTES_LOOP      2870
+READD0              2148
+READD1              2196
+READD2              21E4
+READD3              2232
+READD4              2280
+READD5              22CE
+READD6              231C
+READD7              236A
+READ_NUMBYTES       287E
+REGISTER_CHECK      208C
+RM                  2008
+RR                  208A
+RR_A                20A0
+RR_D                20F6
+RS                  2860
+SADDR               280E
+SCOUNT              2806
+SDATA               2820
+SPACE               20
+SPACE_LOOP0         1F1C
+SPACE_LOOP4         1F34
+SRECADDR            15000
+SRECLIM             2848
+SRECLIM_MSG         2C9B
+SRECSTART           15500
+STACK               18000
+START               1F00
+SVALID              27E8
+WM                  2056
+WR                  2668
+WR_A                268A
+WR_ADDR0            26DC
+WR_ADDR1            26E4
+WR_ADDR2            26EC
+WR_ADDR3            26F4
+WR_ADDR4            26FC
+WR_ADDR5            2704
+WR_ADDR6            270C
+WR_ADDR7            2714
+WR_D                271C
+WR_DATA0            276E
+WR_DATA1            2776
+WR_DATA2            277E
+WR_DATA3            2786
+WR_DATA4            278E
+WR_DATA5            2796
+WR_DATA6            279E
+WR_DATA7            27A6
+WR_EXIT             27AE
+WR_LOOP             2676
