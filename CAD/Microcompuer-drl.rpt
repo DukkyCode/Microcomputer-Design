@@ -1,0 +1,32 @@
+Drill report for C:\Users\ducan\OneDrive\Documents\Microcomputer Design\Microcompuer\Microcompuer.kicad_pcb
+Created on 2/23/2022 11:29:09 PM
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'Microcompuer.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.400mm  0.0157"  (117 holes)
+    T2  0.700mm  0.0276"  (8 holes)
+    T3  0.762mm  0.0300"  (3 holes)
+    T4  0.787mm  0.0310"  (30 holes)
+    T5  0.800mm  0.0315"  (311 holes)  (with 3 slots)
+    T6  0.914mm  0.0360"  (5 holes)
+    T7  0.965mm  0.0380"  (1 hole)
+    T8  1.000mm  0.0394"  (9 holes)
+    T9  1.100mm  0.0433"  (4 holes)
+    T10  1.320mm  0.0520"  (3 holes)
+    T11  3.200mm  0.1260"  (2 holes)
+
+    Total plated holes count 493
+
+
+Not plated through holes are merged with plated holes
+    unplated through holes:
+    =============================================================
+
+    Total unplated holes count 0

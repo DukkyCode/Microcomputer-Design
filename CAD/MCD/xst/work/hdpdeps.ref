@@ -1,9 +1,0 @@
-V3 3
-FL "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.vhd" 2022/03/23.04:45:13 P.20131013
-EN work/MCD 1648028715 \
-      FL "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.vhd" \
-      PB ieee/std_logic_1164 1381692176 PB ieee/STD_LOGIC_UNSIGNED 1381692179 \
-      PB ieee/std_logic_arith 1381692177
-AR work/MCD/Behavioral 1648028716 \
-      FL "C:/Users/ducan/OneDrive/Undergraduate Classes/Microcomputer Design/Program/MCD/MCD.vhd" \
-      EN work/MCD 1648028715
