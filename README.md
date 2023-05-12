@@ -1,4 +1,6 @@
 # Microcomputer-Design
+Introduction:
+-	The goal of this project is to design, build, and program a single-board computer. It also provides insight into computer architecture
 
 Chip Specification:
 - XR68C681CJ-F – DUART: the XR68C681 devices offers a single IC solution for the 68000 family of microprocessors.
